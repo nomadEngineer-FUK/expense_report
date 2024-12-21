@@ -1,0 +1,25 @@
+
+/* 経費申請フォーム */
+.input-group-wrapper {
+    width: 50%;
+    margin: 0 auto;
+    padding: 1.2rem 5rem;
+    background-color: aliceblue;
+    border-radius: 12px;
+}
+.input-form-group {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+.input-group-main-note {
+    background-color: rgba(250, 197, 188, 0.59);
+    padding: 1rem;
+    border-radius: 12px;
+}
+.input-group-sub-note {
+    font-size: 0.8rem;
+}
+
+.field-row {
+    margin-bottom: 1rem;
+}
