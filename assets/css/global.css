@@ -10,6 +10,7 @@
 .input-form-group {
     padding-left: 3rem;
     padding-right: 3rem;
+    margin-bottom: 2rem;
 }
 .input-group-main-note {
     background-color: rgba(250, 197, 188, 0.59);
@@ -20,6 +21,27 @@
     font-size: 0.8rem;
 }
 
-.field-row {
+.form-field {
     margin-bottom: 1rem;
+}
+
+
+/* size */
+.width-ninety-five {
+    width: 95%;
+}
+.width-ninety-two-five {
+    width: 92.5%;
+}
+.width-ninety {
+    width: 90%;
+}
+.width-eighty-five {
+    width: 85%;
+}
+.width-forty-two-five {
+    width: 42.5%;
+}
+.width-thirty {
+    width: 30%;
 }

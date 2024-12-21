@@ -27,19 +27,17 @@ onMounted(() => {
 
         <!-- フォーム グループ 1：申請者情報 -->
         <div class="input-form-group input-applicant-info">
-
-            <div class="field-row">
-                <label for="request-date">申請日</label>
-                <input id="request-date" name="request-date" type="date" value="当日の日付を自動入力" readonly>
-            </div>
-            <div class="field-row">
-                <label for="applicant-name">氏名</label>
-                <input id="applicant-name" name="applicant-name" type="text" :value="users?.[1]?.username" readonly>
-            </div>
-
-            <div class="field-row">
-                <label for="applicant-department">所属部署</label>
-                <input id="applicant-department" name="applicant-department" type="text" :value="departments?.[1]?.name" readonly>
+            <div class="form-grid">
+                
+                <div class="form-field">
+                    <label for="applicant-department">所属部署</label>
+                    <input id="applicant-department" name="applicant-department" type="text" :value="departments?.[1]?.name"
+                    readonly>
+                </div>
+                <div class="form-field">
+                    <label for="applicant-name">氏名</label>
+                    <input id="applicant-name" name="applicant-name" type="text" :value="users?.[1]?.username" readonly>
+                </div>
             </div>
         </div>
     </div>
@@ -51,8 +49,24 @@ onMounted(() => {
     border-bottom: 2px solid rgba(192, 192, 192, 0.6);
 }
 
-.input-applicant-info {
-    display: flex;
-}
 
+.form-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.form-field {
+    flex: 1;
+    min-width: 0;
+}
+.form-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.form-field input {
+    width: 85%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 </style>
