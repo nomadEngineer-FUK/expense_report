@@ -5,8 +5,14 @@
         </div>
         <nav class="sidebar-nav">
             <ul class="nav-list">
-                <li class="nav-item">home</li>
-                <li class="nav-item">申請する</li>
+                <li class="nav-item">
+                    <nuxt-link to="/">home</nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/expense-report">
+                        申請する
+                    </nuxt-link>
+                </li>
                 <li class="nav-item">申請履歴</li>
                 <li class="nav-item">承認する</li>
                 <li class="nav-item">申請一覧</li>
