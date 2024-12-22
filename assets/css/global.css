@@ -1,32 +1,21 @@
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+}
 /* 経費申請フォーム */
-.input-group-wrapper {
-    width: 50%;
-    margin: 0 auto;
-    padding: 1.2rem 5rem;
-    background-color: aliceblue;
-    border-radius: 12px;
-}
-.input-form-group {
-    padding-left: 3rem;
-    padding-right: 3rem;
-    margin-bottom: 2rem;
-}
-.input-group-main-note {
-    background-color: rgba(250, 197, 188, 0.59);
-    padding: 1rem;
-    border-radius: 12px;
-}
-.input-group-sub-note {
-    font-size: 0.8rem;
-}
-
-.form-field {
-    margin-bottom: 1rem;
+.expense-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.2fr 1fr 1.5fr 1.5fr;
+    /* gap: 0.1rem; */
 }
 
 
-/* size */
+/* Color */
+
+
+/* Size */
 .width-ninety-five {
     width: 95%;
 }
@@ -45,3 +34,4 @@
 .width-thirty {
     width: 30%;
 }
+

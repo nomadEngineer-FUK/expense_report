@@ -5,7 +5,7 @@ import GqlTest from '~/components/users/GqlTest.vue';
 <template>
     <div>
         <p>this is home page</p>
-        <NuxtLink to="/expense_report">REPORT</NuxtLink>
+        <NuxtLink to="/expense-report">REPORT</NuxtLink>
 
         <GqlTest />
     </div>

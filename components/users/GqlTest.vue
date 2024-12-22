@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useUsers } from "~/composables/users";
+import { useUsersApi } from "~/composables/api/useUsersApi";
 import { onMounted } from "vue";
-const { users, fetchUsers } = useUsers();
+const { users, fetchUsers } = useUsersApi();
 
 onMounted(() => {
     fetchUsers();

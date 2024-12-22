@@ -13,9 +13,10 @@
     text-align: center;
 }
 .expense-report-title {
-    font-size: 40px;
+    font-size: 2rem;
 }
 .expense-report-note {
+    font-size: 0.8rem;
     margin-bottom: 2rem;
     padding-bottom: 1.2rem;
     border-bottom: 1px solid rgba(192, 192, 192, 0.8);

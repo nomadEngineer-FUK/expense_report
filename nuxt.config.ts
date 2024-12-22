@@ -8,4 +8,7 @@ export default defineNuxtConfig({
       USE_MOCK: process.env.NUXT_ENV_USE_MOCK || 'false',
     },
   },
+  imports: {
+    dirs: ['composables/**'],
+  },
 })
