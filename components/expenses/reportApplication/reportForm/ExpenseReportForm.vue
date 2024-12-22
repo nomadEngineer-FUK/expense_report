@@ -1,17 +1,37 @@
 <script setup lang="ts">
 import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.vue';
 import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
+import TextBtn from '@/components/commonTools/TextBtn.vue';
+
+
 </script>
 
 
 <template>
-    <div class="expense-report-table">
-        <ExpenseReportFormForTableHeader />
-        <ExpenseReportFormForInput />
-        <ExpenseReportFormForInput />
-        <ExpenseReportFormForInput />
-        <ExpenseReportFormForInput />
-        <ExpenseReportFormForInput />
+    <div class="expense-report-container">
+        <div class="expense-report-table">
+            <ExpenseReportFormForTableHeader />
+            <ExpenseReportFormForInput />
+            <ExpenseReportFormForInput />
+            <ExpenseReportFormForInput />
+            <ExpenseReportFormForInput />
+            <ExpenseReportFormForInput />
+        </div>
+
+        <div class="expense-report-btn-container">
+            <TextBtn
+                text="確認する"
+                button-text-color="text-white"
+                button-bg-color="bg-blue"
+            />
+            <TextBtn
+                text="キャンセル"
+                button-text-color="text-black"
+                button-bg-color="bg-light-gray"
+                button-hover-text-color="hover-text-white"
+                button-hover-bg-color="hover-bg-gray"
+            />
+        </div>
     </div>
 </template>
 
@@ -40,5 +60,12 @@ import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 :deep(.header .cell) {
     font-weight: bold;
     color: #333;
+}
+
+.expense-report-btn-container {
+    gap: 1rem;
+    display: flex;
+    margin-top: 1.2rem;
+    justify-content: flex-end;
 }
 </style>
