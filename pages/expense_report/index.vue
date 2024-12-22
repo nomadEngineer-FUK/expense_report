@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import ExpenseReport from '~/components/expenses/expense-reports/expense-reports-form/ExpenseReportInput.vue';
+
+import ExpenseReportForm from '~/components/expenses/reportApplication/reportForm/ExpenseReportForm.vue';
 import { useUsers } from '~/composables/users';
 
 const users = useUsers();
@@ -8,6 +9,6 @@ const users = useUsers();
 
 <template>
     <div>
-        <ExpenseReport />
+        <ExpenseReportForm />
     </div>
 </template>
