@@ -48,7 +48,7 @@
     padding: 0;
 }
 .nav-item {
-    padding: 0.6rem 0;
+    padding: 0.8rem 0;
 }
 .nav-item:hover {
     background-color: #c3dcf4e5;
