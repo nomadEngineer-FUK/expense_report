@@ -15,14 +15,46 @@
                         申請する
                     </nuxt-link>
                 </li>
-                <li class="nav-item">申請履歴</li>
-                <li class="nav-item">承認する</li>
-                <li class="nav-item">申請一覧</li>
-                <li class="nav-item">プロフィール</li>
-                <li class="nav-item">アカウント一覧</li>
-                <li class="nav-item">設定</li>
-                <li class="nav-item">FAQ</li>
-                <li class="nav-item">ログアウト</li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        申請履歴
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        承認する
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        申請一覧
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        プロフィール
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        アカウント一覧
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        設定
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        FAQ
+                    </nuxt-link>
+                </li>
+                <li class="nav-item">
+                    <nuxt-link to="/" class="nav-link">
+                        ログアウト
+                    </nuxt-link>
+                </li>
             </ul>
         </nav>
     </div>
@@ -56,7 +88,7 @@
     padding: 0;
 }
 .nav-item {
-    padding: 1.4rem 0;
+    padding: 1.6rem 0;
     height: 100%;
     position: relative;
 }
