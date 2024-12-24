@@ -11,7 +11,8 @@
 /* 経費申請フォーム */
 .expense-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr 1.2fr 1fr 1.5fr 1.5fr;
+    /* 購入費 | 内容 | 部門 | 金額 | 支払先 | 備考 */
+    grid-template-columns: 1fr 1.5fr 1.2fr 0.9fr 1.5fr 1.5fr;
 }
 
 button {

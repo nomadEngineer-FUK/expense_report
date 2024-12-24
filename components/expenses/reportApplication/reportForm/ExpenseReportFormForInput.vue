@@ -13,11 +13,11 @@ onMounted(() => {
     <div class="expense-grid input-row">
         <!-- 購入日 -->
         <div class="cell">
-            <input type="date" placeholder="2025/01/01" />
+            <input type="date" placeholder="ex) 2025/01/01" />
         </div>
         <!-- 内容 -->
         <div class="cell description">
-            <input type="text" placeholder="書籍購入費" />
+            <input type="text" placeholder="ex) 書籍購入費" />
         </div>
         <!-- 部門 -->
         <div class="cell department">
@@ -27,11 +27,11 @@ onMounted(() => {
         </div>
         <!-- 金額 -->
         <div class="cell amount">
-            <input type="number" placeholder="2,000" />
+            <input type="number" placeholder="ex) 2,000" />
         </div>
         <!-- 支払先 -->
         <div class="cell payee">
-            <input type="text" placeholder="アマゾンジャパン合同会社" />
+            <input type="text" placeholder="ex) 紀伊國屋書店" />
         </div>
         <!-- 備考 -->
         <div class="cell note">
