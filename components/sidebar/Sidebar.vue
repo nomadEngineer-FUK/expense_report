@@ -6,10 +6,12 @@
         <nav class="sidebar-nav">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <nuxt-link to="/">home</nuxt-link>
+                    <nuxt-link to="/" class="nav-link">
+                        home
+                    </nuxt-link>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/expense-report">
+                    <nuxt-link to="/expense-report" class="nav-link">
                         申請する
                     </nuxt-link>
                 </li>
@@ -54,11 +56,25 @@
     padding: 0;
 }
 .nav-item {
-    padding: 0.8rem 0;
+    padding: 1.4rem 0;
+    height: 100%;
+    position: relative;
 }
 .nav-item:hover {
     background-color: #c3dcf4e5;
     transition: 0.3s;
     border-radius: 0.4rem;
+}
+.nav-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
 }
 </style>
