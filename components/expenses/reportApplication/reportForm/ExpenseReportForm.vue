@@ -12,10 +12,6 @@ import TextBtn from '@/components/commonTools/TextBtn.vue';
         <div class="expense-report-table">
             <ExpenseReportFormForTableHeader />
             <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
         </div>
 
         <div class="expense-report-btn-container">

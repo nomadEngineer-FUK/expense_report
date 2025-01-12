@@ -1,5 +1,6 @@
 <template>
     <div class="expense-grid header">
+        <div class="cell"></div>
         <div class="cell">購入日</div>
         <div class="cell">内容</div>
         <div class="cell">部門</div>
