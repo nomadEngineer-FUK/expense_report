@@ -9,6 +9,10 @@ const props = defineProps({
     formId: {
         type: Number,
         required: true
+    },
+    isLastForm: {
+        type: Boolean,
+        required: true
     }
 });
 
@@ -26,6 +30,7 @@ onMounted(() => {
             class="cell"
             @add-form="$emit('add-form')"
             @remove-form="$emit('remove-form', formId)"
+            :is-last-form="isLastForm"
         />
 
         <!-- 購入日 -->

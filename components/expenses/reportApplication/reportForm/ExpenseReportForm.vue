@@ -3,19 +3,12 @@ import { ref } from 'vue';
 import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.vue';
 import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 import TextBtn from '@/components/commonTools/TextBtn.vue';
+import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
 
-let idCounter = 1; // フォームの一意なIDを生成するカウンター
-const forms = ref([{ id: idCounter++ }]);
+const { forms, addFormAt, removeForm } = useFormsStore();
 
-// 任意の行に空のフォームを複製
-const addFormAt = (index: number) => {
-    forms.value.splice(index + 1, 0, { id: idCounter++ })
-}
-
-// 任意のフォームを削除
-const removeForm = (id: number) => {
-    forms.value = forms.value.filter((form) => form.id !== id);
-};
+// 入力フォームが一つのみ、を判定
+const isLastForm = computed(() => forms.value.length === 1);
 </script>
 
 <template>
@@ -23,31 +16,19 @@ const removeForm = (id: number) => {
         <div class="expense-report-table">
             <ExpenseReportFormForTableHeader />
 
-            <div
-                v-for="(form, index) in forms"
-                :key="form.id"
-            >
+            <div v-for="(form, index) in forms" :key="form.id">
                 <ExpenseReportFormForInput
                     @add-form="addFormAt(index)"
                     @remove-form="removeForm"
                     :form-id="form.id"
-                />
+                    :is-last-form="isLastForm" />
             </div>
         </div>
 
         <div class="expense-report-btn-container">
-            <TextBtn
-                text="確認する"
-                button-text-color="text-white"
-                button-bg-color="bg-blue"
-            />
-            <TextBtn
-                text="キャンセル"
-                button-text-color="text-black"
-                button-bg-color="bg-light-gray"
-                button-hover-text-color="hover-text-white"
-                button-hover-bg-color="hover-bg-gray"
-            />
+            <TextBtn text="確認する" button-text-color="text-white" button-bg-color="bg-blue" />
+            <TextBtn text="キャンセル" button-text-color="text-black" button-bg-color="bg-light-gray"
+                button-hover-text-color="hover-text-white" button-hover-bg-color="hover-bg-gray" />
         </div>
     </div>
 </template>
@@ -63,9 +44,11 @@ const removeForm = (id: number) => {
 :deep(.input-row) {
     border-bottom: 1px solid #ddd;
 }
+
 :deep(.input-row):last-child {
     border-bottom: none;
 }
+
 :deep(.expense-grid .cell) {
     width: 100%;
     height: 100%;
