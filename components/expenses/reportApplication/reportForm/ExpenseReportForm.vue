@@ -4,22 +4,19 @@ import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.v
 import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 import TextBtn from '@/components/commonTools/TextBtn.vue';
 
-
-
 let idCounter = 1; // フォームの一意なIDを生成するカウンター
 const forms = ref([{ id: idCounter++ }]);
 
-const addForm = () => {
-    forms.value.push({ id: idCounter++ });
-};
+// 任意の行に空のフォームを複製
+const addFormAt = (index: number) => {
+    forms.value.splice(index + 1, 0, { id: idCounter++ })
+}
 
+// 任意のフォームを削除
 const removeForm = (id: number) => {
     forms.value = forms.value.filter((form) => form.id !== id);
 };
-
-
 </script>
-
 
 <template>
     <div class="expense-report-container">
@@ -27,11 +24,11 @@ const removeForm = (id: number) => {
             <ExpenseReportFormForTableHeader />
 
             <div
-                v-for="form in forms"
+                v-for="(form, index) in forms"
                 :key="form.id"
             >
                 <ExpenseReportFormForInput
-                    @add-form="addForm"
+                    @add-form="addFormAt(index)"
                     @remove-form="removeForm"
                     :form-id="form.id"
                 />

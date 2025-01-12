@@ -5,8 +5,6 @@ import { defineProps, defineEmits } from 'vue';
 
 const { departments, fetchDepartments } = useDepartmentsApi();
 
-
-
 const props = defineProps({
     formId: {
         type: Number,

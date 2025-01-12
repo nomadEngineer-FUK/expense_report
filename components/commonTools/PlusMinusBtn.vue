@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper-plus-minus-btn">
-        <div class="btn-puls">
-            <button class="btn-text" @click="$emit('add-form')">
-                +
-            </button>
-        </div>
         <div class="btn-minus">
             <button class="btn-text" @click="$emit('remove-form')">
                 -
+            </button>
+        </div>
+        <div class="btn-puls">
+            <button class="btn-text" @click="$emit('add-form')">
+                +
             </button>
         </div>
     </div>
@@ -24,10 +24,12 @@
     justify-content: center;
     display: flex;
 }
-.btn-puls {
+.btn-minus {
     margin-bottom: 0.3rem;
 }
 .btn-text {
     color: aliceblue;
+    font-weight: bold;
+    font-size: 1rem;
 }
 </style>
