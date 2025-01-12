@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import { useDepartmentsApi } from '~/composables/api/useDepartmentsApi';
 import PlusMinusBtn from '~/components/commonTools/PlusMinusBtn.vue';
+import { defineProps, defineEmits } from 'vue';
 
-const { departments,fetchDepartments } = useDepartmentsApi();
+const { departments, fetchDepartments } = useDepartmentsApi();
+
+
+
+const props = defineProps({
+    formId: {
+        type: Number,
+        required: true
+    }
+});
+
+const emit = defineEmits(['add-form', 'remove-form']);
 
 onMounted(() => {
     fetchDepartments();
@@ -12,8 +24,10 @@ onMounted(() => {
 <template>
     <div class="expense-grid input-row">
 
-        <PlusMinusBtn 
+        <PlusMinusBtn
             class="cell"
+            @add-form="$emit('add-form')"
+            @remove-form="$emit('remove-form', formId)"
         />
 
         <!-- 購入日 -->
