@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useDepartmentsApi } from '~/composables/api/useDepartmentsApi';
+import PlusMinusBtn from '~/components/commonTools/PlusMinusBtn.vue';
 
 const { departments,fetchDepartments } = useDepartmentsApi();
 
@@ -11,6 +11,11 @@ onMounted(() => {
 </script>
 <template>
     <div class="expense-grid input-row">
+
+        <PlusMinusBtn 
+            class="cell"
+        />
+
         <!-- 購入日 -->
         <div class="cell">
             <input type="date" placeholder="ex) 2025/01/01" />
@@ -43,7 +48,7 @@ onMounted(() => {
 :deep(.cell input),
 :deep(.cell select) {
     width: 100%;
-    padding: 0.3rem;
+    padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
