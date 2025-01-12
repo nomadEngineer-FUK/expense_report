@@ -1,7 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.vue';
 import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 import TextBtn from '@/components/commonTools/TextBtn.vue';
+
+
+
+let idCounter = 1; // フォームの一意なIDを生成するカウンター
+const forms = ref([{ id: idCounter++ }]);
+
+const addForm = () => {
+    forms.value.push({ id: idCounter++ });
+};
+
+const removeForm = (id: number) => {
+    forms.value = forms.value.filter((form) => form.id !== id);
+};
 
 
 </script>
@@ -11,11 +25,17 @@ import TextBtn from '@/components/commonTools/TextBtn.vue';
     <div class="expense-report-container">
         <div class="expense-report-table">
             <ExpenseReportFormForTableHeader />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
-            <ExpenseReportFormForInput />
+
+            <div
+                v-for="form in forms"
+                :key="form.id"
+            >
+                <ExpenseReportFormForInput
+                    @add-form="addForm"
+                    @remove-form="removeForm"
+                    :form-id="form.id"
+                />
+            </div>
         </div>
 
         <div class="expense-report-btn-container">
