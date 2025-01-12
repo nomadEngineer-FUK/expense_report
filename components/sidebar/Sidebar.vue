@@ -56,7 +56,7 @@
     padding: 0;
 }
 .nav-item {
-    padding: 1.4rem 0;
+    padding: 1.6rem 0;
     height: 100%;
     position: relative;
 }
