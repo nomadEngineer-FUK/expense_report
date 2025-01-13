@@ -1,59 +1,57 @@
 <template>
     <div class="sidebar">
         <div class="sidebar-header">
-            <p>経費精算</p>
+            <!-- <p>経費精算</p> -->
+            <NuxtLink to="/" class="header-link">
+                経費精算
+            </NuxtLink>
         </div>
         <nav class="sidebar-nav">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
-                        home
-                    </nuxt-link>
-                </li>
-                <li class="nav-item">
-                    <nuxt-link to="/expense-report" class="nav-link">
+                    <NuxtLink to="/expense-report" class="nav-link">
                         申請する
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         申請履歴
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         承認する
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         申請一覧
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         プロフィール
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         アカウント一覧
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         設定
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         FAQ
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <nuxt-link to="/" class="nav-link">
+                    <NuxtLink to="/" class="nav-link">
                         ログアウト
-                    </nuxt-link>
+                    </NuxtLink>
                 </li>
             </ul>
         </nav>
@@ -62,7 +60,6 @@
 
 <style scoped>
 .sidebar {
-    /* width: 200px; */
     width: 12%;
     height: 100vh;
     position: fixed;
@@ -79,6 +76,12 @@
     font-weight: bold;
     text-align: center;
 }
+.header-link {
+    text-decoration: none;
+    font-size: large;
+    color: #333;
+}
+
 .sidebar-nav {
     margin-top: 1.8rem;
     text-align: center;
