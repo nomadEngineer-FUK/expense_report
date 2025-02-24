@@ -1,6 +1,6 @@
 
 
-export type FormType = {
+export type ExpenseReportType = {
     amount: number | null;
     description: string;
     department_id: number;

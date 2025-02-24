@@ -3,16 +3,17 @@ import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.v
 import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 import TextBtn from '@/components/commonTools/TextBtn.vue';
 import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { computed } from 'vue';
+import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi';
 
 const { forms, addFormAt, createNewForm, removeForm } = useFormsStore();
 const { addExpense } = useExpensesApi();
 const handleSubmit = async () => {
-    console.log("🚀 handleSubmit() 実行開始！");
     const isSuccess = await addExpense(forms.value);
     if (isSuccess) forms.value = [createNewForm()];
 };
 
-// 入力フォームが一つの場合は、フォームの削除を出来なくする
+// 入力フォームが一つの場合は、フォームの削除不可
 const isLastForm = computed(() => forms.value.length === 1);
 </script>
 
@@ -22,13 +23,8 @@ const isLastForm = computed(() => forms.value.length === 1);
             <ExpenseReportFormForTableHeader />
 
             <div v-for="(form, index) in forms" :key="form.id">
-                <ExpenseReportFormForInput
-                    @add-form="addFormAt(index)"
-                    @remove-form="removeForm"
-                    :form="form"
-                    :form-id="form.id"
-                    :is-last-form="isLastForm"
-                />
+                <ExpenseReportFormForInput @add-form="addFormAt(index)" @remove-form="removeForm" :form="form"
+                    :form-id="form.id" :is-last-form="isLastForm" />
             </div>
         </div>
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
-import ExpenseReport from '~/components/expenses/reportApplication/ExpenseReport.vue';
-import DisplayReceipt from '~/components/expenses/reportApplication/pictureOfReceipt/DisplayReceipt.vue';
+import ExpenseReport from '~/components/expenses/ExpenseReport.vue';
+import DisplayReceipt from '~/components/expenses/pictureOfReceipt/DisplayReceipt.vue';
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-const { users, fetchUsers } = useDataApi();
+const { users, fetchUsers } = useExpenseData();
 
 onMounted(() => {
     fetchUsers();

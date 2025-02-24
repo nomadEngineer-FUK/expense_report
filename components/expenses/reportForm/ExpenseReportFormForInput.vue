@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import PlusMinusBtn from '~/components/commonTools/PlusMinusBtn.vue';
 import { defineProps, defineEmits } from 'vue';
+import { mockDepartments } from '~/mock/mockData';
 
-const { departments, fetchDepartments } = useDataApi();
+const departments = ref(mockDepartments);
 
 const props = defineProps({
     form: {
@@ -21,9 +22,6 @@ const props = defineProps({
 
 const emit = defineEmits(['add-form', 'remove-form']);
 
-onMounted(() => {
-    fetchDepartments();
-});
 
 </script>
 <template>
