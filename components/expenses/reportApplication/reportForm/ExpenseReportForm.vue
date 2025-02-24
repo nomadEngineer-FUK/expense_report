@@ -13,26 +13,23 @@ const handleSubmit = async () => {
     if (isSuccess) forms.value = [createNewForm()];
 };
 
-// 入力フォームが一つのみ、を判定
+// 入力フォームが一つの場合は、フォームの削除を出来なくする
 const isLastForm = computed(() => forms.value.length === 1);
-
-import { useToast } from 'vue-toastification';
-const toast = useToast()
-
-const showToast = () => {
-    toast.success('This is a success message!')
-}
 </script>
 
 <template>
     <div class="expense-report-container">
-        <button @click="showToast">Show Toast</button>
         <div class="expense-report-table">
             <ExpenseReportFormForTableHeader />
 
             <div v-for="(form, index) in forms" :key="form.id">
-                <ExpenseReportFormForInput @add-form="addFormAt(index)" @remove-form="removeForm" :form="form"
-                    :form-id="form.id" :is-last-form="isLastForm" />
+                <ExpenseReportFormForInput
+                    @add-form="addFormAt(index)"
+                    @remove-form="removeForm"
+                    :form="form"
+                    :form-id="form.id"
+                    :is-last-form="isLastForm"
+                />
             </div>
         </div>
 

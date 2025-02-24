@@ -29,8 +29,12 @@ onMounted(() => {
 <template>
     <div class="expense-grid input-row">
 
-        <PlusMinusBtn class="cell" @add-form="$emit('add-form')" @remove-form="$emit('remove-form', formId)"
-            :is-last-form="isLastForm" />
+        <PlusMinusBtn
+            class="cell"
+            @add-form="$emit('add-form')"
+            @remove-form="$emit('remove-form', formId)"
+            :is-last-form="isLastForm"
+        />
 
         <!-- 購入日 -->
         <div class="cell">

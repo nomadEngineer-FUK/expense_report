@@ -1,4 +1,4 @@
-import { GET_USERS } from "~/apis/graphql/query/queries";
+import { GET_USERS } from "~/.nuxt/imports";
 import type { User } from "~/types/type";
 
 export const useUsers = () => {

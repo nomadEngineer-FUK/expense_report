@@ -1,5 +1,5 @@
 import { useNuxtApp } from "#app";
-import { GET_USERS, GET_ACCOUNTING_ITEMS, GET_DEPARTMENTS } from "~/apis/graphql/query/queries";
+import { GET_USERS, GET_ACCOUNTING_ITEMS, GET_DEPARTMENTS } from "./queries";
 import type { User, Department, AccountingItem } from "~/types/type";
 
 export function useDataApi() {
