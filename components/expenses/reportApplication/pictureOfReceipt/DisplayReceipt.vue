@@ -1,5 +1,6 @@
 <template>
-    <div class="sub-contents">
+    <!-- 現時点では非表示 -->
+    <div class="sub-contents" v-if="false">
         <p>Display Receipt</p>
     </div>
 </template>
