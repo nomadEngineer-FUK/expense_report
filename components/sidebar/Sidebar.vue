@@ -14,7 +14,7 @@
                     </NuxtLink>
                 </li>
                 <li class="nav-item">
-                    <NuxtLink to="/" class="nav-link">
+                    <NuxtLink to="/expense-report/history" class="nav-link">
                         申請履歴
                     </NuxtLink>
                 </li>
