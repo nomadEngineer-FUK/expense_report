@@ -5,28 +5,40 @@ import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue';
 import TextBtn from '@/components/commonTools/TextBtn.vue';
 import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
 
-const { forms, addFormAt, removeForm } = useFormsStore();
+const { forms, addFormAt, createNewForm, removeForm } = useFormsStore();
+const { addExpense } = useExpensesApi();
+const handleSubmit = async () => {
+    console.log("🚀 handleSubmit() 実行開始！");
+    const isSuccess = await addExpense(forms.value);
+    if (isSuccess) forms.value = [createNewForm()];
+};
 
 // 入力フォームが一つのみ、を判定
 const isLastForm = computed(() => forms.value.length === 1);
+
+import { useToast } from 'vue-toastification';
+const toast = useToast()
+
+const showToast = () => {
+    toast.success('This is a success message!')
+}
 </script>
 
 <template>
     <div class="expense-report-container">
+        <button @click="showToast">Show Toast</button>
         <div class="expense-report-table">
             <ExpenseReportFormForTableHeader />
 
             <div v-for="(form, index) in forms" :key="form.id">
-                <ExpenseReportFormForInput
-                    @add-form="addFormAt(index)"
-                    @remove-form="removeForm"
-                    :form-id="form.id"
-                    :is-last-form="isLastForm" />
+                <ExpenseReportFormForInput @add-form="addFormAt(index)" @remove-form="removeForm" :form="form"
+                    :form-id="form.id" :is-last-form="isLastForm" />
             </div>
         </div>
 
         <div class="expense-report-btn-container">
-            <TextBtn text="確認する" button-text-color="text-white" button-bg-color="bg-blue" />
+            <TextBtn text="確認する" button-text-color="text-white" button-bg-color="bg-blue" @click="handleSubmit()" />
+
             <TextBtn text="キャンセル" button-text-color="text-black" button-bg-color="bg-light-gray"
                 button-hover-text-color="hover-text-white" button-hover-bg-color="hover-bg-gray" />
         </div>

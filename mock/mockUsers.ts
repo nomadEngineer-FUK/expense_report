@@ -25,31 +25,31 @@ export const mockUsers: User[] = [
 // モックデータ：部署
 export const mockDepartments: Department[] = [
     {
-        departmentId: 1,
-        department: "財務経理部",
+        id: 1,
+        name: "財務経理部",
     },
     {
-        departmentId: 2,
-        department: "人事総務部",
+        id: 2,
+        name: "人事総務部",
     },
     {
-        departmentId: 3,
-        department: "システム開発部",
+        id: 3,
+        name: "システム開発部",
     },
 ];
 
 // モックデータ：勘定科目
 export const mockAccountingItems: AccountingItem[] = [
     {
-        accountingItemId: 1,
-        accountingItemName: "旅費交通費"
+        id: 1,
+        name: "旅費交通費"
     },
     {
-        accountingItemId: 2,
-        accountingItemName: "消耗品費"
+        id: 2,
+        name: "消耗品費"
     },
     {
-        accountingItemId: 3,
-        accountingItemName: "会議費"
+        id: 3,
+        name: "会議費"
     },
 ];
