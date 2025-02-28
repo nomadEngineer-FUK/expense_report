@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { mockUsers } from "~/mock/mockData";
 
-const { users, fetchUsers } = useExpenseData();
 
-onMounted(() => {
-    fetchUsers();
-});
 </script>
 
 <template>
     <div>
         <h2>ユーザー一覧(GraphQL)</h2>
         <ul>
-            <li v-for="user in users" :key="user.id">
+            <li v-for="user in mockUsers" :key="user.id">
                 {{ user.username }} ({{ user.role }})
             </li>
         </ul>

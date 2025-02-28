@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GqlTest from '~/components/users/GqlTest.vue';
+import GqlTest from '~/components/testForCheck/GqlTest.vue';
 </script>
 
 <template>
