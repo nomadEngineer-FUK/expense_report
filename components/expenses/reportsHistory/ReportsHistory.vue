@@ -54,6 +54,7 @@ onMounted(async () => {
 .history-container {
     padding: 2rem;
 }
+
 .history-title {
     text-align: center;
     margin-bottom: 1rem;
@@ -62,10 +63,12 @@ onMounted(async () => {
     padding-bottom: 0.4rem;
     margin: 1rem auto 2rem;
 }
+
 .table-wrapper {
     width: 90%;
     margin: 0 auto;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -84,8 +87,10 @@ th {
     background-color: #f4f4f4;
     font-weight: bold;
 }
+
 tr:hover {
-    background-color: rgba(230, 255, 132, 0.244)!important;
+    background-color: rgba(230, 255, 132, 0.244) !important;
+    transition: 0.3s;
 }
 
 tr:nth-child(even) {
