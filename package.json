@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@nuxtjs/supabase": "^1.4.6",
-    "@supabase/supabase-js": "^2.48.1",
+    "@supabase/supabase-js": "^2.49.1",
     "@vueuse/core": "^12.7.0",
     "nuxt": "^3.14.1592",
     "supabase": "^2.2.1",
@@ -21,6 +21,7 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.18.1"
+    "@nuxt/types": "^2.18.1",
+    "@types/react": "19.0.10"
   }
 }

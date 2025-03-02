@@ -1,14 +1,14 @@
 import type { ExpenseReportType } from "~/types/types";
-import { useSupabaseClient } from "./useSupabaseClient";
 import { useToast } from "vue-toastification";
+import { useNuxtApp } from "#app";
 
 
 export function useExpensesApi() {
-    const supabase = useSupabaseClient();
+    const { $supabase } = useNuxtApp();
     const toast = useToast();
 
     const fetchExpenses = async (): Promise<ExpenseReportType[]> => {
-        const { data, error } = await supabase
+        const { data, error } = await $supabase
             .from("expense_report")
             .select();
 
@@ -22,7 +22,7 @@ export function useExpensesApi() {
     const addExpense = async (expenses: ExpenseReportType[]): Promise<boolean> => {
         try {
             const convertedExpenses = expenses.map(({ id, ...rest }) => rest);
-            const { error } = await supabase
+            const { error } = await $supabase
                 .from("expense_report")
                 .insert(convertedExpenses)
                 .select();
@@ -44,7 +44,7 @@ export function useExpensesApi() {
     };
 
     const updateExpense = async (id: number, updateExpense: Partial<ExpenseReportType>): Promise<boolean> => {
-        const { error } = await supabase
+        const { error } = await $supabase
             .from("expense_report")
             .update(updateExpense)
             .eq("id", id);
@@ -57,7 +57,7 @@ export function useExpensesApi() {
     };
 
     const deleteExpense = async (id: number): Promise<boolean> => {
-        const { error } = await supabase
+        const { error } = await $supabase
             .from("expense_report")
             .delete()
             .eq("id", id);
