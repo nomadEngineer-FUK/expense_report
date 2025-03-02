@@ -10,7 +10,4 @@ export default defineNuxtConfig({
       SUPABASE_KEY: process.env.SUPABASE_KEY || 'MISSING_SUPABASE_KEY',
     },
   },
-  imports: {
-    dirs: ['composables/**'],
-  },
 });

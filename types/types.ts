@@ -1,5 +1,7 @@
 
-
+/**
+ * 経費精算テーブルのカラム
+ */
 export type ExpenseReportType = {
     amount: number | null;
     description: string;
@@ -9,6 +11,22 @@ export type ExpenseReportType = {
     payee: string;
     purchase_date: string;
 }
+
+/**
+ * 表示するカラムのみを抽出
+ */
+export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
+    "id",
+    "purchase_date",
+    "payee",
+    "amount",
+    "description",
+    "note"
+];
+/**
+ * 表示するカラムのみで再定義
+ */
+export type DisplayedExpenseReport = Pick<ExpenseReportType, typeof DISPLAYED_COLUMNS[number]>;
 
 export type User = {
     id: number;

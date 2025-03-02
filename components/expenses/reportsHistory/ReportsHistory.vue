@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
-import { fetchExpenseReports } from '~/useCases/fetchExpenseReports';
+import { fetchAllExpenseReports } from '~/useCases/fetchExpenseReports';
 import { getColumnsFromSchema } from '~/useCases/fetchExpenseReports';
 
 getColumnsFromSchema("expense_report")
@@ -10,13 +10,12 @@ getColumnsFromSchema("expense_report")
         }
     });
 
-
 const expenseReports = ref([]);
 const columnNames = ref([]);
 
 onMounted(async () => {
     // 経費レポートの取得
-    expenseReports.value = await fetchExpenseReports();
+    expenseReports.value = await fetchAllExpenseReports();
     console.log("取得した履歴:", expenseReports.value);
 
     // 経費レポートのテーブルのカラム名の取得
