@@ -89,7 +89,7 @@ th {
 }
 
 tr:hover {
-    background-color: rgba(230, 255, 132, 0.244) !important;
+    background-color: rgba(255, 245, 157, 0.3) !important;
     transition: 0.3s;
 }
 
