@@ -6,11 +6,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       USE_MOCK: process.env.NUXT_ENV_USE_MOCK || 'false',
-      SUPABASE_URL: process.env.SUPABASE_URL,
-      SUPABASE_KEY: process.env.SUPABASE_KEY,
+      SUPABASE_URL: process.env.SUPABASE_URL || 'MISSING_SUPABASE_URL',
+      SUPABASE_KEY: process.env.SUPABASE_KEY || 'MISSING_SUPABASE_KEY',
     },
   },
   imports: {
     dirs: ['composables/**'],
   },
-})
+});
