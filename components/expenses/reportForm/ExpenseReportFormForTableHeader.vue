@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PlusBtn from '~/components/commonTools/PlusBtn.vue';
-import { useFormsStore } from '~/.nuxt/imports';
+import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
 
 const { addFormToTop } = useFormsStore();
 
@@ -8,7 +8,7 @@ const { addFormToTop } = useFormsStore();
 
 <template>
     <div class="expense-grid header">
-        <PlusBtn class="cell cellone" @click="addFormToTop" />
+        <PlusBtn class="cell plusBtn" @click="addFormToTop" />
         <div class="cell">購入日</div>
         <div class="cell">内容</div>
         <div class="cell">部門</div>
@@ -24,7 +24,7 @@ const { addFormToTop } = useFormsStore();
     border-top-right-radius: 8px;
 }
 
-.cellone {
+.plusBtn {
     display: flex;
     align-items: flex-end;
 }
