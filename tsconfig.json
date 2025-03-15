@@ -20,7 +20,7 @@
         "./.nuxt/types/imports"
       ],
       "~/types/*": ["types/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
     },
     "strict": true,
     "incremental": true,
