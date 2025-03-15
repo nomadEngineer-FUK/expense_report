@@ -2,6 +2,7 @@
  * 経費精算テーブルのカラム
  */
 export type ExpenseReportType = {
+    approval: boolean;
     amount: number | null;
     description: string;
     department_id: number;
@@ -9,6 +10,7 @@ export type ExpenseReportType = {
     note?: string;
     payee: string;
     purchase_date: string;
+    create_date: Date;
 };
 
 /**
@@ -17,11 +19,13 @@ export type ExpenseReportType = {
 // eslint-disable-next-line camelcase
 export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
     "id",
+    "approval",
     "purchase_date",
     "payee",
     "amount",
     "description",
     "note",
+    "create_date",
 ] as const;
 /**
  * 表示するカラムを再定義

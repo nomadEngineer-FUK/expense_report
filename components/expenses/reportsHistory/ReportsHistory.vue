@@ -1,38 +1,91 @@
-<script setup>
-import { onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { DISPLAYED_COLUMNS } from '~/types/types';
+import type { ExpenseReportType } from '~/types/types';
 import {
     fetchAllExpenseReports,
-    getColumnsFromSchema,
-    convertToSelectedColumns
+    filterExpenseReports,
+    sortExpenseReports
 } from '~/useCases/fetchExpenseReports';
-import { DISPLAYED_COLUMNS } from '~/types/types';
-import { COLUMN_LABEL_MAP } from '~/constants.ts';
+import { COLUMN_LABEL_MAP } from '~/constants';
 
-getColumnsFromSchema("expense_report")
-    .then(columns => {
-        if (columns) {
-            console.log("Columns:", columns);
-        }
-    });
+import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
 
 // カラム名を日本語へ変換
-const mappedColumns = (col) => COLUMN_LABEL_MAP[col] || col;
+const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col;
 
-// 経費申請データ
-const expenseReports = ref([]);
-// カラム
+// 表示するカラムリスト
 const columnNames = ref(DISPLAYED_COLUMNS);
 
-onMounted(async () => {
-    // 経費レポートの取得
-    const allData = await fetchAllExpenseReports();
-    expenseReports.value = convertToSelectedColumns(allData);
+// 承認状況のフィルター
+enum FilterType {
+    All = "all",
+    Approved = "approved",
+    Unapproved = "unapproved",
+};
+const filterOptions = [
+    { label: "すべて", value: FilterType.All },
+    { label: "承認済", value: FilterType.Approved },
+    { label: "未承認", value: FilterType.Unapproved },
+];
+const filterType = ref<FilterType>(filterOptions[0].value);
+
+// ソート
+enum SortType {
+    Asc = "asc",
+    Desc = "desc",
+};
+const sortOptions = [
+    { label: "昇順", value: SortType.Asc },
+    { label: "降順", value: SortType.Desc },
+]
+
+// ソート対象のカラム
+const sortKey = ref<keyof ExpenseReportType>("id");
+const sortOrder = ref<SortType>(SortType.Asc);
+
+const sortKeyOptions = computed(() =>
+    columnNames.value.map(col => ({
+        label: mappedColumns(col),
+        value: col,
+    }))
+);
+
+// 表示データ
+const allExpenseReports = ref<ExpenseReportType[]>([]);
+
+// データ取得
+const processedReports = computed(() => {
+    const filtered = filterExpenseReports(allExpenseReports.value, filterType.value);
+    return sortExpenseReports(filtered, sortKey.value, sortOrder.value);
 });
+
+onMounted(async () => {
+    allExpenseReports.value = await fetchAllExpenseReports();
+});
+
+// 承認状況の表示フォーマット
+const getApprovalStatusText = (approval: boolean) => {
+    return approval ? "承認済" : "未承認";
+};
+const getApprovalStatusClass = (approval: boolean) => {
+    return approval ? "status-approved" : "status-unapproved";
+};
 </script>
 
 <template>
     <div class="history-container">
         <h2 class="history-title">経費レポート履歴</h2>
+
+        <!-- 承認状況のプルダウン -->
+        <div class="filter-container">
+            <DropdownSelect label="承認状況" v-model="filterType" :options="filterOptions" />
+        </div>
+
+        <!-- ソート用のプルダウン -->
+        <DropdownSelect label="ソート対象" v-model="sortKey" :options="sortKeyOptions" />
+        <DropdownSelect label="並び替え" v-model="sortOrder" :options="sortOptions" />
+
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -44,9 +97,23 @@ onMounted(async () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="report in expenseReports" :key="report.id">
+                    <!-- フィルターの結果がゼロ件の場合 -->
+                    <tr v-if="processedReports.length === 0">
+                        <td :colspan="columnNames.length + 1" class="no-data-message">
+                            該当の条件を満たすデータはありません
+                        </td>
+                    </tr>
+                    
+                    <tr v-for="report in processedReports" :key="report.id">
                         <td v-for="col in columnNames" :key="col" :class="`col-${col}`">
-                            {{ report[col] }}
+                            <template v-if="col === 'approval'">
+                                <span :class="getApprovalStatusClass(report.approval)">
+                                    {{ getApprovalStatusText(report.approval) }}
+                                </span>
+                            </template>
+                            <template v-else>
+                                {{ report[col] }}
+                            </template>
                         </td>
                         <td class="col-receipt">link</td>
                     </tr>
@@ -75,10 +142,12 @@ onMounted(async () => {
     padding: 1rem 0 3rem;
     z-index: 50;
 }
-
+.filter-container {
+    margin-top: 60px;
+}
 .table-wrapper {
     width: 90%;
-    margin: 50px auto 0;
+    margin: 30px auto 0;
     overflow-y: auto;
     max-height: calc(100vh - 100px);
 }
@@ -87,13 +156,14 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+
 thead {
     position: sticky;
     top: 0;
     background: #f4f4f4;
     z-index: 40;
     border-bottom: 2px solid #ddd;
-    
+
 }
 
 /* スクロール時の視認性を向上 */
@@ -114,25 +184,45 @@ td {
     padding: 8px 12px;
     text-align: center;
 }
+
 th {
     background-color: #f4f4f4;
     font-weight: bold;
 }
+
 tr:hover {
     background-color: rgba(255, 245, 157, 0.3) !important;
     transition: 0.3s;
 }
+
 tr:nth-child(even) {
     background-color: #fafafa;
 }
 
 /* カラム別の列幅 */
+.col-approval,
 .col-purchase_date,
 .col-amount {
     width: 120px;
 }
 .col-receipt {
     width: 80px;
+}
+
+/* 承認済みのスタイル */
+.status-approved {
+    color: #2f5d3a;
+    background-color: #d4edda;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* 未承認のスタイル */
+.status-unapproved {
+    color: #6c2f2f;
+    background-color: #f8d7da;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 /* レスポンシブ対応 */
