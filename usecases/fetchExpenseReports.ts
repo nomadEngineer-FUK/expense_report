@@ -13,7 +13,7 @@ export async function getColumnsFromSchema(tableName: string): Promise<string[] 
     }
 
     return data.map((col: { column_name: string }) => col.column_name);
-};
+}
 
 /**
  * 全申請を取得
@@ -24,7 +24,7 @@ export const fetchAllExpenseReports = async (): Promise<ExpenseReport[]> => {
     const { data, error } = await $supabase
         .from("expense_report")
         .select();
-    
+
     if (error || !data) {
         console.error("Error fetching expense reports:", error);
         return [];

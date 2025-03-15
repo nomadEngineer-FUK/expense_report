@@ -1,4 +1,3 @@
-
 /**
  * 経費精算テーブルのカラム
  */
@@ -10,11 +9,12 @@ export type ExpenseReportType = {
     note?: string;
     payee: string;
     purchase_date: string;
-}
+};
 
 /**
  * 表示するカラムのみを抽出
  */
+// eslint-disable-next-line camelcase
 export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
     "id",
     "purchase_date",
@@ -24,7 +24,7 @@ export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
     "note",
 ] as const;
 /**
- * 表示するカラムを再定義
+ * 表示するカラムを再定義  
  */
 export type DisplayedExpenseReport = Pick<ExpenseReportType, typeof DISPLAYED_COLUMNS[number]>;
 
@@ -33,19 +33,19 @@ export type User = {
     username: string;
     mail: string;
     role: string;
-}
+};
 
 export type Department = {
     id: number;
     name: string;
-}
+};
 
 export type AccountingItem = {
     id: number;
     name: string;
-}
+};
 
 // `GET_USERS` クエリの結果型
 export type GetUsersQuery = {
     getUsers: User[];
-}
+};
