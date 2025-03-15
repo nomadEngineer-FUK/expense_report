@@ -1,7 +1,12 @@
 <script setup>
 import { onMounted } from 'vue';
-import { fetchAllExpenseReports } from '~/useCases/fetchExpenseReports';
-import { getColumnsFromSchema } from '~/useCases/fetchExpenseReports';
+import {
+    fetchAllExpenseReports,
+    getColumnsFromSchema,
+    convertToSelectedColumns
+} from '~/useCases/fetchExpenseReports';
+import { DISPLAYED_COLUMNS } from '~/types/types';
+
 
 getColumnsFromSchema("expense_report")
     .then(columns => {
@@ -10,20 +15,15 @@ getColumnsFromSchema("expense_report")
         }
     });
 
+// 経費申請データ
 const expenseReports = ref([]);
-const columnNames = ref([]);
+// カラム
+const columnNames = ref(DISPLAYED_COLUMNS);
 
 onMounted(async () => {
     // 経費レポートの取得
-    expenseReports.value = await fetchAllExpenseReports();
-    console.log("取得した履歴:", expenseReports.value);
-
-    // 経費レポートのテーブルのカラム名の取得
-    const columns = await getColumnsFromSchema("expense_report");
-    if (columns) {
-        columnNames.value = columns;
-        console.log("Columns:", columnNames.value);
-    }
+    const allData = await fetchAllExpenseReports();
+    expenseReports.value = convertToSelectedColumns(allData);
 });
 </script>
 
