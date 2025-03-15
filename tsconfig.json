@@ -27,9 +27,10 @@
     "outDir": "dist",
   },
   "include": [
-    "src",
-    "types",
-    "composables",
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.tsx",
+    "**/*.vue",
     ".nuxt/types/",
     ".eslintrc.cjs"
   ]
