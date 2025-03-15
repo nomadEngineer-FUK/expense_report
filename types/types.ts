@@ -21,7 +21,7 @@ export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
     "payee",
     "amount",
     "description",
-    "note"
+    "note",
 ] as const;
 /**
  * 表示するカラムを再定義
