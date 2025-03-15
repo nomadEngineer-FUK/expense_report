@@ -16,5 +16,5 @@ export class ExpenseReport {
             payee: "",
             purchase_date: "",
         };
-    };
-};
+    }
+}
