@@ -1,4 +1,4 @@
-import  type { ExpenseReportType } from "~/types/types";
+import type { ExpenseReportType } from "~/types/types";
 
 export class ExpenseReport {
     private data: ExpenseReportType;
@@ -6,6 +6,7 @@ export class ExpenseReport {
     constructor(data: ExpenseReportType) {
         this.data = data;
     }
+
     // 新しいフォームを作成
     static createNewForm(): Omit<ExpenseReportType, "id" | "department_id"> {
         return {
@@ -13,7 +14,7 @@ export class ExpenseReport {
             description: "",
             note: "",
             payee: "",
-            purchase_date: ""
+            purchase_date: "",
         };
     }
 }

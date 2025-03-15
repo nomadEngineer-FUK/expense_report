@@ -1,9 +1,8 @@
-import type { ExpenseReportType } from "~/types/types";
 import { useToast } from "vue-toastification";
+import type { ExpenseReportType } from "~/types/types";
 import { useNuxtApp } from "#app";
 
-
-export function useExpensesApi() {
+export const useExpensesApi = () => {
     const { $supabase } = useNuxtApp();
     const toast = useToast();
 
@@ -16,10 +15,12 @@ export function useExpensesApi() {
             console.error("Error fetching expenses:", error);
             return [];
         }
-        return data ?? [];
+        return (data as ExpenseReportType[]) ?? [];
     };
 
-    const addExpense = async (expenses: ExpenseReportType[]): Promise<boolean> => {
+    const addExpense = async (
+        expenses: ExpenseReportType[],
+    ): Promise<boolean> => {
         try {
             const convertedExpenses = expenses.map(({ id, ...rest }) => rest);
             const { error } = await $supabase
@@ -33,20 +34,22 @@ export function useExpensesApi() {
                 return false;
             }
             toast.success("経費申請が完了しました", { timeout: 3000 });
-            console.log("申請完了")
+            console.log("申請完了");
 
             return true;
-
         } catch (err) {
             toast.error("予期しないエラーが発生しました", { timeout: 3000 });
             return false;
         }
     };
 
-    const updateExpense = async (id: number, updateExpense: Partial<ExpenseReportType>): Promise<boolean> => {
+    const updateExpense = async (
+        id: number,
+        newExpenseData: Partial<ExpenseReportType>,
+    ): Promise<boolean> => {
         const { error } = await $supabase
             .from("expense_report")
-            .update(updateExpense)
+            .update(newExpenseData)
             .eq("id", id);
 
         if (error) {
@@ -73,6 +76,6 @@ export function useExpensesApi() {
         fetchExpenses,
         addExpense,
         updateExpense,
-        deleteExpense
+        deleteExpense,
     };
 };

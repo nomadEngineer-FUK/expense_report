@@ -2,6 +2,7 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "~/*": [
         "./*"
@@ -17,9 +18,19 @@
       ],
       "#imports": [
         "./.nuxt/types/imports"
-      ]
+      ],
+      "~/types/*": ["types/*"],
+      "@/types/*": ["types/*"]
     },
     "strict": true,
-    "incremental": true
-  }
+    "incremental": true,
+    "outDir": "dist",
+  },
+  "include": [
+    "src",
+    "types",
+    "composables",
+    ".nuxt/types/",
+    ".eslintrc.cjs"
+  ]
 }
