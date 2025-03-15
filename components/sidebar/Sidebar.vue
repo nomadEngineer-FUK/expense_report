@@ -68,6 +68,7 @@
     padding: 1rem;
     overflow: hidden;
     background-color: #e1edf9;
+    z-index: 100;
 }
 .sidebar-header {
     border-bottom: 1px solid #ddd;

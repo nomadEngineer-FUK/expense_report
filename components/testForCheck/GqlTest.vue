@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { mockUsers } from "~/mock/mockData";
-
-
 </script>
 
 <template>

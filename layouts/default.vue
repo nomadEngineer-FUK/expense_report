@@ -13,7 +13,10 @@
     min-height: 100vh;
 }
 .layout-main {
-    margin-left: 12%;
+    /* width: 100%; */
+    /* margin-left: 12%; */
+    flex: 1;
+    padding-left: 12%;
     overflow-y: auto;
 }
 </style>

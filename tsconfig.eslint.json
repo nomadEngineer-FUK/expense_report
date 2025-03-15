@@ -4,18 +4,19 @@
         "allowJs": true
     },
     "include": [
-        "src/**/*",
-        "pages/**/*",
-        "components/**/*",
-        "layouts/**/*",
-        "store/**/*",
-        "composables/**/*",
-        "types/*",
-        "entities/**/*",  // ✅ 追加
-        "mock/**/*",      // ✅ 追加
-        "plugins/**/*",   // ✅ 追加
-        "useCases/**/*",  // ✅ 追加
-        "nuxt.config.ts"  // ✅ Nuxt の設定ファイル
+        // "src/**/*",
+        // "pages/**/*",
+        // "components/**/*",
+        // "layouts/**/*",
+        // "store/**/*",
+        // "composables/**/*",
+        // "types/*",
+        // "entities/**/*",
+        // "mock/**/*",
+        // "plugins/**/*",
+        // "useCases/**/*",
+        // "nuxt.config.ts"
+        "**/*"
     ],
     "exclude": [
         "node_modules",
