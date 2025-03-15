@@ -22,9 +22,9 @@ export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
     "amount",
     "description",
     "note"
-];
+] as const;
 /**
- * 表示するカラムのみで再定義
+ * 表示するカラムを再定義
  */
 export type DisplayedExpenseReport = Pick<ExpenseReportType, typeof DISPLAYED_COLUMNS[number]>;
 

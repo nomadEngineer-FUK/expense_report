@@ -1,5 +1,6 @@
 import { ExpenseReport } from "@/entities/ExpenseReport";
 import { useNuxtApp } from "#app";
+import { type ExpenseReportType, type DisplayedExpenseReport, DISPLAYED_COLUMNS } from "~/types/types";
 
 // テーブルのカラム名を取得（履歴ページで表示用）
 export async function getColumnsFromSchema(tableName: string): Promise<string[] | null> {
@@ -30,4 +31,17 @@ export const fetchAllExpenseReports = async (): Promise<ExpenseReport[]> => {
     }
 
     return data;
+};
+
+/**
+ * 全申請データから、表示用にカラムを調整
+ */
+export const convertToSelectedColumns = (
+    data: ExpenseReportType[]
+): DisplayedExpenseReport[] => {
+    return data.map((item) => {
+        return Object.fromEntries(
+            DISPLAYED_COLUMNS.map((col) => [col, item[col]])
+        ) as DisplayedExpenseReport;
+    });
 };

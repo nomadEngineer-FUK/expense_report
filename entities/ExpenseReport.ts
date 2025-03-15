@@ -1,4 +1,4 @@
-import  type { ExpenseReportType } from "~/types/types";
+import type { ExpenseReportType } from "~/types/types";
 
 export class ExpenseReport {
     private data: ExpenseReportType;
@@ -15,5 +15,5 @@ export class ExpenseReport {
             payee: "",
             purchase_date: ""
         };
-    }
-}
+    };
+};
