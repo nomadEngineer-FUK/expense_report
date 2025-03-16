@@ -18,6 +18,8 @@ export const useFormsStore = () => {
     // 新しいフォームを作成
     const createNewForm = (): ExpenseReportType => ({
         amount: null,
+        approval: false,
+        create_date: new Date(),
         description: "",
         department_id: 1,
         id: generateId(),
