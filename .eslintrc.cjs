@@ -42,7 +42,8 @@ module.exports = {
     ],
     quotes: ["error", "double"],
     "linebreak-style": "off",
-    indent: ["error", 4, { SwitchCase: 1 }], // スペース4つ & タブ1回は許容 for JS
+    "indent": ["error", 4, { "SwitchCase": 1 }], // スペース4つ & タブ1回は許容 for JS
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "@typescript-eslint/indent": ["error", 4], // スペース4つ & タブ1回は許容 for TS
     "@typescript-eslint/quotes": ["error", "double"],
     "no-plusplus": "off", // ❌ `++` を許可
