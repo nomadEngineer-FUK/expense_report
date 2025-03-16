@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import { DISPLAYED_COLUMNS } from '~/types/types';
 import type { ExpenseReportType } from '~/types/types';
 import {
-    fetchAllExpenseReports,
+    fetchExpenseReports,
     filterExpenseReports,
     sortExpenseReports
 } from '~/useCases/fetchExpenseReports';
@@ -52,16 +52,16 @@ const sortKeyOptions = computed(() =>
 );
 
 // 表示データ
-const allExpenseReports = ref<ExpenseReportType[]>([]);
+const allExpenseReports = ref<(ExpenseReportType & { formattedDate: string })[]>([]);
 
 // データ取得
-const processedReports = computed(() => {
+const processedReports = computed<(ExpenseReportType & { formattedDate: string })[]>(() => {
     const filtered = filterExpenseReports(allExpenseReports.value, filterType.value);
     return sortExpenseReports(filtered, sortKey.value, sortOrder.value);
 });
 
 onMounted(async () => {
-    allExpenseReports.value = await fetchAllExpenseReports();
+    allExpenseReports.value = await fetchExpenseReports();
 });
 
 // 承認状況の表示フォーマット
@@ -103,13 +103,19 @@ const getApprovalStatusClass = (approval: boolean) => {
                             該当の条件を満たすデータはありません
                         </td>
                     </tr>
-                    
+
                     <tr v-for="report in processedReports" :key="report.id">
                         <td v-for="col in columnNames" :key="col" :class="`col-${col}`">
                             <template v-if="col === 'approval'">
                                 <span :class="getApprovalStatusClass(report.approval)">
                                     {{ getApprovalStatusText(report.approval) }}
                                 </span>
+                            </template>
+                            <template v-else-if="col === 'amount'">
+                                {{ report[col]?.toLocaleString() }} <!-- カンマ付きにする -->
+                            </template>
+                            <template v-else-if="col === 'create_date'">
+                                {{ report.formattedDate }} <!-- 日付のフォーマットに変更 -->
                             </template>
                             <template v-else>
                                 {{ report[col] }}
@@ -202,6 +208,7 @@ tr:nth-child(even) {
 /* カラム別の列幅 */
 .col-approval,
 .col-purchase_date,
+.col-create_date,
 .col-amount {
     width: 120px;
 }
