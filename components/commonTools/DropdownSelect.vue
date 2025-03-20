@@ -35,6 +35,8 @@ const handleChange = (event: Event) => {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .dropdown-label {
@@ -48,5 +50,11 @@ const handleChange = (event: Event) => {
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+    .dropdown-container {
+        margin-bottom: 0.2rem;
+    }
 }
 </style>

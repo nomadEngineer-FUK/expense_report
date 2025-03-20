@@ -54,3 +54,26 @@ export type AccountingItem = {
 export type GetUsersQuery = {
     getUsers: User[];
 };
+
+// 承認状況のフィルター
+export enum FilterType {
+    All = "all",
+    Approved = "approved",
+    Unapproved = "unapproved",
+}
+export const filterOptions = [
+    { label: "すべて", value: FilterType.All },
+    { label: "承認済", value: FilterType.Approved },
+    { label: "未承認", value: FilterType.Unapproved },
+];
+
+// ソート
+export enum SortType {
+    Asc = "asc",
+    Desc = "desc",
+}
+
+export const sortOptions = [
+    { label: "昇順", value: SortType.Asc },
+    { label: "降順", value: SortType.Desc },
+];
