@@ -1,62 +1,53 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
 const props = defineProps({
     isLastForm: {
         type: Boolean,
-        required: true
-    }
-});
-
+        required: true,
+    },
+})
 </script>
 
 <template>
     <div class="wrapper-plus-minus-btn">
-        <div class="btn-minus">
-            <button
-                class="btn-text"
-                @click="$emit('remove-form')"
-                :disabled="isLastForm"
-            >
-                -
-            </button>
-        </div>
-        <div class="btn-puls">
-            <button class="btn-text" @click="$emit('add-form')">
-                +
-            </button>
-        </div>
+        <button
+            class="btn-text"
+            @click="$emit('remove-form')"
+            :disabled="isLastForm"
+        >
+            -
+        </button>
+        <button
+            class="btn-text"
+            @click="$emit('add-form')"
+        >
+            +
+        </button>
     </div>
 </template>
 
 <style scoped>
-.btn-puls,
-.btn-minus {
-    background-color: #327ddf;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    text-align: center;
-    justify-content: center;
+.wrapper-plus-minus-btn {
     display: flex;
-    border: none;
-}
-.btn-minus {
-    margin-bottom: 0.3rem;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .btn-text {
-    color: aliceblue;
+    background-color: #327ddf;
+    color: white;
     font-weight: bold;
     font-size: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }
 
-button {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-button[disabled] {
-    background-color: gray;
+.btn-text:disabled {
+    background-color: gray !important;
+    color: #ccc !important;
     cursor: not-allowed;
 }
 </style>

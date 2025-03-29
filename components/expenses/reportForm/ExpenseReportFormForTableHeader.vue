@@ -1,31 +1,24 @@
 <script setup lang="ts">
-import PlusBtn from '~/components/commonTools/PlusBtn.vue';
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
-
-const { addFormToTop } = useFormsStore();
-
+const props = defineProps<{
+    label: string
+}>();
 </script>
 
 <template>
-    <div class="expense-grid header">
-        <PlusBtn class="cell plusBtn" @click="addFormToTop" />
-        <div class="cell">購入日</div>
-        <div class="cell">内容</div>
-        <div class="cell">部門</div>
-        <div class="cell">金額</div>
-        <div class="cell">支払先</div>
-        <div class="cell">備考</div>
-    </div>
+    <h3 class="report-title">{{ props.label }}</h3>
 </template>
-<style scoped>
-.header {
-    background-color: #f0f0f0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
 
-.plusBtn {
-    display: flex;
-    align-items: flex-end;
+<style scoped>
+.report-title {
+    font-weight: bold;
+    font-size: larger;
+    padding: 0.8rem;
+    margin: 3rem auto 2rem;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 95%;
+    background-color: #f1efc073;
 }
 </style>

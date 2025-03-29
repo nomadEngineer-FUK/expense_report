@@ -9,12 +9,20 @@
     transition: 0.3s;
 }
 /* 経費申請フォーム */
-.expense-grid {
+.report-grid {
     display: grid;
-    /* [ボタン] | 購入費 | 内容 | 部門 | 金額 | 支払先 | 備考 */
-    grid-template-columns: 0.1fr 1fr 1.5fr 1.2fr 0.9fr 1.5fr 1.5fr;
+    /* [ボタン] | 購入日 | 内容 | 部門 | 金額 | 支払先 | 備考 */
+    /* grid-template-columns: 0.1fr 1fr 1.5fr 1.2fr 0.9fr 1.5fr 1.5fr; */
+
+    /* [ボタン] | 内容 | 部門 | 金額 */
+    grid-template-columns: 0.1fr 1.5fr 1.2fr 0.9fr;
 }
 
+input, select, textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 button {
     background-color: transparent;
     border: none;
