@@ -20,5 +20,7 @@ const props = defineProps<{
     border-bottom-right-radius: 8px;
     width: 95%;
     background-color: #f1efc073;
+    color: aliceblue;
+    background-color: #051981cf;
 }
 </style>
