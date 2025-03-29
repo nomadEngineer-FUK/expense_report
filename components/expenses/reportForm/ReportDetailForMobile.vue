@@ -35,7 +35,7 @@ const isLastForm = computed(() => forms.value.length === 1)
         </div>
         <div class="mobile-input-actions">
             <TextBtn
-                text="追加"
+                text="下に追加"
                 class="report-btn"
                 button-text-color="text-white"
                 button-bg-color="bg-blue"
