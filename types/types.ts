@@ -33,6 +33,15 @@ export const DISPLAYED_COLUMNS: (keyof ExpenseReportType)[] = [
  */
 export type DisplayedExpenseReport = Pick<ExpenseReportType, typeof DISPLAYED_COLUMNS[number]>;
 
+/**
+ * 申請画面の 2. 経費の詳細 で使用
+ */
+export type ExpenseForm = {
+    description: string
+    department_id: number
+    amount: number
+}
+
 export type User = {
     id: number;
     username: string;
