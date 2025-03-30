@@ -3,7 +3,7 @@ import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore'
 import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi'
 
 // コンポーネント
-import ExpenseReportFormForTableHeader from './ExpenseReportFormForTableHeader.vue'
+import ReportSectionHeader from './ReportSectionHeader.vue'
 import TextBtn from '@/components/commonTools/TextBtn.vue'
 import ReportDetailForMobile from './ReportDetailForMobile.vue'
 import ReportDetailForPC from './ReportDetailForPC.vue'
@@ -36,7 +36,7 @@ onUnmounted(() => {
 <template>
     <div class="expense-report-container">
         <div class="report-section">
-            <ExpenseReportFormForTableHeader :label="'1. 経費の概要'" />
+            <ReportSectionHeader :label="'1. 経費の概要'" />
             <div class="report-contents-wrapper">
                 <div class="contents purchase-date">
                     <label>1.1 購入日</label>
@@ -50,7 +50,7 @@ onUnmounted(() => {
         </div>
 
         <div class="report-section">
-            <ExpenseReportFormForTableHeader :label="'2. 経費の詳細'" />
+            <ReportSectionHeader :label="'2. 経費の詳細'" />
             
             <!-- FIXME: モーダルウィンドウにする -->
             <p class="side-note">
@@ -69,7 +69,7 @@ onUnmounted(() => {
         </div>
 
         <div class="report-section last-report-section">
-            <ExpenseReportFormForTableHeader :label="'3. 備考'" />
+            <ReportSectionHeader :label="'3. 備考'" />
 
             <div class="report-contents-wrapper">
                 <div class="contents purchase-date">

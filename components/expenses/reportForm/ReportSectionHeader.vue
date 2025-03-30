@@ -19,7 +19,9 @@ const props = defineProps<{
     border-top-left-radius: 8px;
     border-bottom-right-radius: 8px;
     width: 95%;
-    color: aliceblue;
-    background-color: #051981cf;
+    border: 2px solid #000080;
+    color: #000080;
+    background-color: #c3dcf4e5;
+    background: linear-gradient(to right, #f0f8ff, #c3dcf4e5);
 }
 </style>
