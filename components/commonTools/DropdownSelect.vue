@@ -54,7 +54,20 @@ const handleChange = (event: Event) => {
 
 @media (max-width: 1023px) {
     .dropdown-container {
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.4rem;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .dropdown-label {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        min-width: 7rem;
+    }
+
+    .dropdown-select {
+        flex: 1;
+        min-width: 150px;
     }
 }
 </style>
