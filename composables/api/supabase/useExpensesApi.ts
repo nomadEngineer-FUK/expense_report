@@ -22,7 +22,20 @@ export const useExpensesApi = () => {
         expenses: ExpenseReportType[],
     ): Promise<boolean> => {
         try {
-            const convertedExpenses = expenses.map(({ id, ...rest }) => rest);
+            // 1. 共通情報の抽出（日付と支払先）
+            const commonReportInfo = {
+                purchase_date: expenses[0].purchase_date,
+                payee: expenses[0].payee,
+                note: expenses[0].note,
+            };
+
+            // 2. 共通情報を各行にマージ（id は除外）
+            const convertedExpenses = expenses.map(({ id, ...rest }) => ({
+                ...rest,
+                ...commonReportInfo,
+            }));
+
+            // 3. Supabaseへ登録
             const { error } = await $supabase
                 .from("expense_report")
                 .insert(convertedExpenses)
@@ -33,10 +46,11 @@ export const useExpensesApi = () => {
                 toast.error("経費申請に失敗しました", { timeout: 3000 });
                 return false;
             }
-            toast.success("経費申請が完了しました", { timeout: 3000 });
-            console.log("申請完了");
 
+            toast.success("経費申請が完了しました", { timeout: 3000 });
+            // console.log("申請完了");
             return true;
+
         } catch (err) {
             toast.error("予期しないエラーが発生しました", { timeout: 3000 });
             return false;
