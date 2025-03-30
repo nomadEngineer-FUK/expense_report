@@ -1,8 +1,7 @@
 <script setup>
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore'
-
-import PlusBtn from '~/components/commonTools/PlusBtn.vue'
-import ExpenseReportFormForInput from './ExpenseReportFormForInput.vue'
+import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import PlusBtn from '~/components/commonTools/PlusBtn.vue';
+import ReportFormForInput from './ReportFormForInput.vue';
 
 const { forms, addFormAt, addFormToTop, removeForm } = useFormsStore()
 
@@ -25,7 +24,7 @@ const isLastForm = computed(() => forms.value.length === 1)
             v-for="(form, index) in forms"
             :key="form.id"
         >
-            <ExpenseReportFormForInput
+            <ReportFormForInput
                 @add-form="addFormAt(index)"
                 @remove-form="removeForm"
                 :form="form"
@@ -38,8 +37,6 @@ const isLastForm = computed(() => forms.value.length === 1)
 
 <style scoped>
 .expense-report-table {
-    width: 90%;
-    margin: 0 auto;
     border: 1px solid #ddd;
     border-radius: 8px;
 }
@@ -47,5 +44,17 @@ const isLastForm = computed(() => forms.value.length === 1)
     background-color: #f0f0f0;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+}
+.report-detail-header {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.4rem 1.6rem;
+    background-color: #f5f5f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.4rem;
 }
 </style>

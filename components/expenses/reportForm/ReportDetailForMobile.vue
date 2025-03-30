@@ -6,6 +6,7 @@ const { forms, addFormAt, removeForm } = useFormsStore()
 // 入力フォームが一つの場合は、フォームの削除不可
 const isLastForm = computed(() => forms.value.length === 1)
 </script>
+
 <template>
     <div
         v-for="(form, index) in forms"
@@ -79,13 +80,14 @@ const isLastForm = computed(() => forms.value.length === 1)
 
 .mobile-input-row label {
     font-weight: bold;
-    flex: 1;
+    /* flex: 1; */
+    width: 4rem;
+    text-align: center;
 }
 
 .mobile-input-row input {
-    flex: 2;
+    flex: 1;
     padding: 0.4rem;
-    margin-left: 0.5rem;
 }
 
 .mobile-input-actions {
@@ -95,8 +97,8 @@ const isLastForm = computed(() => forms.value.length === 1)
 }
 
 .report-btn:disabled {
-    background-color: gray !important;
-    color: #ccc !important;
+    background-color: gray;
+    color: #ccc;
     cursor: not-allowed;
 }
 </style>
