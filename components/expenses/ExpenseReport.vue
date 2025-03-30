@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import ExpenseReportForm from './reportForm/ExpenseReportForm.vue';
+import ReportForm from './reportForm/ReportForm.vue';
 import ExpenseReportHeader from './ExpenseReportHeader.vue';
 </script>
 
 <template>
     <div class="expense-report">
         <ExpenseReportHeader />
-        <ExpenseReportForm />
+        <ReportForm />
     </div>
 </template>
 
