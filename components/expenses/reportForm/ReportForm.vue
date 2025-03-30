@@ -12,9 +12,9 @@ const { addExpense } = useExpensesApi()
 const { forms, createNewForm } = useFormsStore()
 
 const handleSubmit = async () => {
-    const isSuccess = await addExpense(forms.value)
-    if (isSuccess) forms.value = [createNewForm()]
-}
+    const isSuccess = await addExpense(forms.value);
+    if (isSuccess) forms.value = [createNewForm()];
+};
 
 // 端末により表示するコンポーネントを分ける
 const isPC = ref(true)
@@ -41,11 +41,11 @@ onUnmounted(() => {
                 <div class="report-contents-wrapper">
                     <div class="contents purchase-date">
                         <label>1.1 購入日</label>
-                        <input type="date" />
+                        <input type="date" v-model="forms[0].purchase_date" />
                     </div>
                     <div class="contents payee">
                         <label>1.2 支払先</label>
-                        <input type="text" />
+                        <input type="text" v-model="forms[0].payee" />
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ onUnmounted(() => {
             <ReportSectionHeader :label="'2. 経費の詳細'" />
             <div class="report-card">
                 <p class="side-note">
-                    * 1つの経費支出の中で、用途が異なるものがある場合は、<br />
+                    * 1つの経費支出（一枚の領収証）の中で、用途が異なるものがある場合は、<br />
                     「+」ボタンでフォームを複製して、それぞれ入力してください
                 </p>
                 <div v-if="isPC">
@@ -76,6 +76,7 @@ onUnmounted(() => {
                             name="note"
                             id="note"
                             class="note-textarea"
+                            v-model="forms[0].note"
                         ></textarea>
                     </div>
                 </div>
