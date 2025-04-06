@@ -101,13 +101,3 @@ export type ExpenseStatus =
 export type PrimaryExpenseStatus =
     | "draft"
     | "pending"
-
-
-/**
- * DashBoard
- */
-export type MonthlyReportDataOfEveryUser = {
-    month: string;
-    count: number;
-    amount: number;
-}

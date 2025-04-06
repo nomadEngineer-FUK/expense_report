@@ -1,4 +1,4 @@
-import type { MonthlyReportDataOfEveryUser } from "~/types/types";
+
 
 export const useDashBoardData = () => {
 
@@ -41,23 +41,9 @@ export const useDashBoardData = () => {
 
         return `${prevYear}/${paddedMonth}`;
     };
-
-    // ダッシュボード表示用に2ヶ月分のデータを形成
-    const reportsForTwoConsecutiveMonths = computed(() => {
-        const prevMonth = getPreviousMonth(yyyymm);
-
-        const previousReport: MonthlyReportDataOfEveryUser = {
-            yearMonth: prevMonth,
-            count: 0,
-            amount: 0,
-        };
-
-        return [props.latestReport, previousData]
-    });
-
+    
     return {
         optionsOfYearMonth,
         getPreviousMonth,
-        reportsForTwoConsecutiveMonths,
     }
 };
