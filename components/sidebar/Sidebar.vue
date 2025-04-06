@@ -1,20 +1,11 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
-const isSidebarOpen = ref(false)
-const isMobile = ref(false)
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 
-// モバイル端末を判定
-const updateIsMobile = () => {
-    isMobile.value = window.innerWidth <= 768
-}
-onMounted(() => {
-    updateIsMobile()
-    window.addEventListener('resize', updateIsMobile)
-})
-onUnmounted(() => {
-    window.removeEventListener('resize', updateIsMobile)
-})
+// 端末の判定
+const isMobile = useIsUnderBreakpoint(768);
+const isSidebarOpen = ref(false);
 
 // ルート変更時にサイドバーを閉じる（モバイルのみ）
 const route = useRoute()

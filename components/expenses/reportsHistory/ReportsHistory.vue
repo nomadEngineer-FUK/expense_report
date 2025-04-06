@@ -1,61 +1,70 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { DISPLAYED_COLUMNS } from '~/types/types';
-import type { ExpenseReportType } from '~/types/types';
-import {
-    FilterType,
-    SortType,
-    filterOptions,
-    sortOptions
-} from '~/types/types';
+import { ref, onMounted } from 'vue'
+import { DISPLAYED_COLUMNS } from '~/types/types'
+import type { ExpenseReportType } from '~/types/types'
+import { FilterType, SortType, filterOptions, sortOptions } from '~/types/types'
 import {
     fetchExpenseReports,
     filterExpenseReports,
-    sortExpenseReports
-} from '~/useCases/fetchExpenseReports';
+    sortExpenseReports,
+} from '~/useCases/fetchExpenseReports'
 import { COLUMN_LABEL_MAP } from '~/constants';
-import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
+import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon'
+import DropdownSelect from '~/components/commonTools/DropdownSelect.vue'
 
 // カラム名を日本語へ変換
-const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col;
+const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col
 
 // 表示するカラムリスト
-const columnNames = ref(DISPLAYED_COLUMNS);
+const columnNames = ref(DISPLAYED_COLUMNS)
 
 // フィルター対象のカラム
-const filterType = ref<FilterType>(filterOptions[0].value);
+const filterType = ref<FilterType>(filterOptions[0].value)
 
 // ソート対象のカラム
-const sortKey = ref<keyof ExpenseReportType>("id");
-const sortOrder = ref<SortType>(SortType.Asc);
+const sortKey = ref<keyof ExpenseReportType>('id')
+const sortOrder = ref<SortType>(SortType.Asc)
 
 const sortKeyOptions = computed(() =>
-    columnNames.value.map(col => ({
+    columnNames.value.map((col) => ({
         label: mappedColumns(col),
         value: col,
     }))
-);
+)
 
 // 表示データ
-const allExpenseReports = ref<(ExpenseReportType & { formattedDate: string })[]>([]);
+const allExpenseReports = ref<
+    (ExpenseReportType & { formattedDate: string })[]
+>([])
 
 // データ取得
-const processedReports = computed<(ExpenseReportType & { formattedDate: string })[]>(() => {
-    const filtered = filterExpenseReports(allExpenseReports.value, filterType.value);
-    return sortExpenseReports(filtered, sortKey.value, sortOrder.value);
-});
+const processedReports = computed<
+    (ExpenseReportType & { formattedDate: string })[]
+>(() => {
+    const filtered = filterExpenseReports(
+        allExpenseReports.value,
+        filterType.value
+    )
+    return sortExpenseReports(filtered, sortKey.value, sortOrder.value)
+})
 
 onMounted(async () => {
-    allExpenseReports.value = await fetchExpenseReports();
-});
+    allExpenseReports.value = await fetchExpenseReports()
+})
 
 // 承認状況の表示フォーマット
 const getApprovalStatusText = (approval: boolean) => {
-    return approval ? "承認済" : "未承認";
-};
+    return approval ? '承認済' : '未承認'
+}
 const getApprovalStatusClass = (approval: boolean) => {
-    return approval ? "status-approved" : "status-unapproved";
-};
+    return approval ? 'status-approved' : 'status-unapproved'
+}
+
+// 端末の検知
+const isTablet = useIsUnderBreakpoint(1023);
+const layout = computed<"row" | "column">(() => 
+    isTablet.value ? "row" : "column"
+);
 </script>
 
 <template>
@@ -63,23 +72,40 @@ const getApprovalStatusClass = (approval: boolean) => {
         <h2 class="history-title">経費レポート履歴</h2>
 
         <div class="history-content">
-            
             <!-- 承認状況のプルダウン -->
             <div class="dropdown-wrapper">
-                
                 <!-- フィルター用のプルダウン -->
-                <DropdownSelect label="承認状況" v-model="filterType" :options="filterOptions" />
-                
+                <DropdownSelect
+                    label="承認状況"
+                    v-model="filterType"
+                    :options="filterOptions"
+                    :layout="layout"
+                />
+
                 <!-- ソート用のプルダウン -->
-                <DropdownSelect label="ソート対象" v-model="sortKey" :options="sortKeyOptions" />
-                <DropdownSelect label="並び替え" v-model="sortOrder" :options="sortOptions" />
+                <DropdownSelect
+                    label="ソート対象"
+                    v-model="sortKey"
+                    :options="sortKeyOptions"
+                    :layout="layout"
+                />
+                <DropdownSelect
+                    label="並び替え"
+                    v-model="sortOrder"
+                    :options="sortOptions"
+                    :layout="layout"
+                />
             </div>
-            
+
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th v-for="col in columnNames" :key="col" :class="`col-${col}`">
+                            <th
+                                v-for="col in columnNames"
+                                :key="col"
+                                :class="`col-${col}`"
+                            >
                                 {{ mappedColumns(col) }}
                             </th>
                             <th class="col-receipt">領収証</th>
@@ -88,23 +114,45 @@ const getApprovalStatusClass = (approval: boolean) => {
                     <tbody>
                         <!-- フィルターの結果がゼロ件の場合 -->
                         <tr v-if="processedReports.length === 0">
-                            <td :colspan="columnNames.length + 1" class="no-data-message">
+                            <td
+                                :colspan="columnNames.length + 1"
+                                class="no-data-message"
+                            >
                                 該当の条件を満たすデータはありません
                             </td>
                         </tr>
 
-                        <tr v-for="report in processedReports" :key="report.id">
-                            <td v-for="col in columnNames" :key="col" :class="`col-${col}`">
+                        <tr
+                            v-for="report in processedReports"
+                            :key="report.id"
+                        >
+                            <td
+                                v-for="col in columnNames"
+                                :key="col"
+                                :class="`col-${col}`"
+                            >
                                 <template v-if="col === 'approval'">
-                                    <span :class="getApprovalStatusClass(report.approval)">
-                                        {{ getApprovalStatusText(report.approval) }}
+                                    <span
+                                        :class="
+                                            getApprovalStatusClass(
+                                                report.approval
+                                            )
+                                        "
+                                    >
+                                        {{
+                                            getApprovalStatusText(
+                                                report.approval
+                                            )
+                                        }}
                                     </span>
                                 </template>
                                 <template v-else-if="col === 'amount'">
-                                    {{ report[col]?.toLocaleString() }} <!-- カンマ付きにする -->
+                                    {{ report[col]?.toLocaleString() }}
+                                    <!-- カンマ付きにする -->
                                 </template>
                                 <template v-else-if="col === 'create_date'">
-                                    {{ report.formattedDate }} <!-- 日付のフォーマットに変更 -->
+                                    {{ report.formattedDate }}
+                                    <!-- 日付のフォーマットに変更 -->
                                 </template>
                                 <template v-else>
                                     {{ report[col] }}
@@ -177,11 +225,10 @@ thead {
     background: #f4f4f4;
     z-index: 40;
     border-bottom: 2px solid #ddd;
-
 }
 /* スクロール時の視認性を向上 */
 thead::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     bottom: 0;
@@ -238,7 +285,7 @@ tr:nth-child(even) {
     .history-container {
         overflow: hidden;
     }
-    
+
     .history-title {
         left: 0;
         width: 100%;

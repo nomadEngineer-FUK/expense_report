@@ -86,3 +86,28 @@ export const sortOptions = [
     { label: "昇順", value: SortType.Asc },
     { label: "降順", value: SortType.Desc },
 ];
+
+
+/**
+ * 申請ステータス
+ */
+export type ExpenseStatus =
+    | "draft"
+    | "pending"
+    | "approved"
+    | "returned"
+    | "rejected"
+
+export type PrimaryExpenseStatus =
+    | "draft"
+    | "pending"
+
+
+/**
+ * DashBoard
+ */
+export type MonthlyReportDataOfEveryUser = {
+    month: string;
+    count: number;
+    amount: number;
+}
