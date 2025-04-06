@@ -64,6 +64,7 @@ const handleChange = (event: Event) => {
     font-size: 14px;
     font-weight: bold;
     margin-right: 1rem;
+    flex: 0 0 auto;
 }
 
 .dropdown-select {
@@ -72,20 +73,12 @@ const handleChange = (event: Event) => {
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    width: 50%;
+    flex: 1;
 }
 
 @media (max-width: 1023px) {
     .dropdown-container {
         margin-bottom: 0.4rem;
-    }
-    .dropdown-label {
-        flex: 0 0 auto;
-        min-width: 7rem;
-    }
-
-    .dropdown-select {
-        flex: 1;
     }
 }
 </style>
