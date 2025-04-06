@@ -71,7 +71,8 @@ const handleChange = (event: Event) => {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    cursor: pointer;;
+    cursor: pointer;
+    width: 50%;
 }
 
 @media (max-width: 1023px) {
