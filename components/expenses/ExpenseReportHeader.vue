@@ -19,6 +19,6 @@
     font-size: 0.8rem;
     margin-bottom: 2rem;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(192, 192, 192, 0.8);
+    border-bottom: 1px solid #ddd;
 }
 </style>
