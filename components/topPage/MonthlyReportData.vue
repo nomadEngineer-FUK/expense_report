@@ -17,7 +17,7 @@ const layout = computed<'column' | 'row'>(() =>
 </script>
 
 <template>
-    <div class="dashboard-wrapper" :class="{'cards-for-mobile': isMobile}">
+    <div class="monthly-report-data" :class="{'cards-for-mobile': isMobile}">
         <div class="dropdown-area">
             <DropdownSelect
                 label="表示年月"
@@ -49,7 +49,7 @@ const layout = computed<'column' | 'row'>(() =>
 </template>
 
 <style scoped>
-.dashboard-wrapper {
+.monthly-report-data {
     max-width: 80%;
     background-color: #fafafa;
     margin: 0 auto;
