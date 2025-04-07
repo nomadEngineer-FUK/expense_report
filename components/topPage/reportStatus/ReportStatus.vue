@@ -1,8 +1,15 @@
 <script setup>
-import { REPORT_STATUS_LABEL } from '~/constants';
+import { REPORT_STATUS_LABEL, PRIMARY_REPORT_STATUS_LABEL } from '~/constants';
+import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 import StatusCardsForReport from './StatusCardsForReport.vue';
 import TextBtn from '~/components/commonTools/TextBtn.vue';
 import ModalWindow from '~/components/commonTools/ModalWindow.vue';
+
+// 端末の判定
+const isMobile = useIsUnderBreakpoint(768);
+const labelsInCard = computed(() => {
+    return isMobile.value ? PRIMARY_REPORT_STATUS_LABEL : REPORT_STATUS_LABEL;
+});
 
 const showModal = ref(false);
 const openModal = () => {
@@ -18,7 +25,7 @@ const closeModal = () => {
     <div class="report-status">
         <div class="card-container">
             <StatusCardsForReport
-                v-for="(label, key) in REPORT_STATUS_LABEL"
+                v-for="(label, key) in labelsInCard"
                 :key="key"
                 :label="label"
                 :count="count"
