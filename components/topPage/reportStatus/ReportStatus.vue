@@ -31,6 +31,7 @@ const closeModal = () => {
                 :count="count"
             />
             <TextBtn
+                v-if="isMobile"
                 text="その他ステータス"
                 class="report-btn"
                 button-text-color="text-white"
