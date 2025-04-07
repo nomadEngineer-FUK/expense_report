@@ -17,7 +17,7 @@ const layout = computed<'column' | 'row'>(() =>
 </script>
 
 <template>
-    <div class="dashboard-wrapper">
+    <div class="dashboard-wrapper" :class="{'cards-for-mobile': isMobile}">
         <div class="dropdown-area">
             <DropdownSelect
                 label="表示年月"
@@ -53,9 +53,12 @@ const layout = computed<'column' | 'row'>(() =>
     max-width: 80%;
     background-color: #fafafa;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem 3rem;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.cards-for-mobile {
+    padding:1rem 1.6rem;
 }
 
 .summary-block {
@@ -75,6 +78,7 @@ const layout = computed<'column' | 'row'>(() =>
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin: 0 auto;
 }
 
 .label {
