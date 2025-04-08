@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DropdownSelect from '../commonTools/DropdownSelect.vue';
 import TextBtn from '../commonTools/TextBtn.vue';
+import BasicCard from '../commonTools/BasicCard.vue';
 import { useDashBoardData } from '~/composables/dashboard/useDashboardData';
 import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 
@@ -17,8 +18,14 @@ const layout = computed<'column' | 'row'>(() =>
 </script>
 
 <template>
-    <div class="monthly-report-data" :class="{'cards-for-mobile': isMobile}">
-        <div :class="{'dropdown-for-mobile': isMobile}">
+    <div
+        class="monthly-report-data"
+        :class="{ 'cards-for-mobile': isMobile }"
+    >
+        <div
+            class="dropdown-title"
+            :class="{ 'dropdown-for-mobile': isMobile }"
+        >
             <DropdownSelect
                 label="表示年月"
                 v-model="yearMonth"
@@ -27,18 +34,18 @@ const layout = computed<'column' | 'row'>(() =>
             />
         </div>
 
-        <div class="summary-block">
-            <div class="summary-item">
-                <span class="label">申請件数</span>
-                <span class="value">{{ 2 }} 件</span>
-            </div>
-            <div class="summary-item">
-                <span class="label">申請金額</span>
-                <span class="value">¥ {{ 222 }}</span>
-            </div>
+        <div class="summary-card">
+            <BasicCard>
+                <div class="label">申請件数</div>
+                <div class="value">{{ 2 }} 件</div>
+            </BasicCard>
+            <BasicCard>
+                <div class="label">申請金額</div>
+                <div class="value">¥ {{ 222 }}</div>
+            </BasicCard>
         </div>
 
-        <div>
+        <div class="btn-to-display-past-data">
             <TextBtn
                 :text="'過去のデータを見る'"
                 button-text-color="text-gray"
@@ -50,31 +57,23 @@ const layout = computed<'column' | 'row'>(() =>
 
 <style scoped>
 .cards-for-mobile {
-    padding:1rem 1.6rem;
+    padding: 1rem 1.6rem;
     max-width: 100%;
 }
 .dropdown-for-mobile {
     max-width: 80%;
     margin: 0 auto;
 }
-.summary-block {
+.dropdown-title {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.summary-card {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin: 1.5rem 0;
-}
-
-.summary-item {
-    flex: 1 1 160px;
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
+    justify-content: center;
 }
 .label {
     font-size: 0.9rem;
@@ -85,5 +84,8 @@ const layout = computed<'column' | 'row'>(() =>
     font-size: 1.3rem;
     font-weight: bold;
     color: #333;
+}
+.btn-to-display-past-data {
+    text-align: center;
 }
 </style>

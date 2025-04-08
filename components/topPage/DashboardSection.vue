@@ -23,6 +23,13 @@ defineProps<{
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+.dashboard-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+}
 .section-title {
     margin-bottom: 2rem;
     font-size: 1.1rem;
@@ -38,8 +45,6 @@ defineProps<{
 @media (max-width: 768px) {
     .dashboard-section {
         text-align: center;
-    }
-    .dashboard-section {
         padding: 1rem 1.6rem;
         width: 90%;
         

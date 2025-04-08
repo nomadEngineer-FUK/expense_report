@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BasicCard from '~/components/commonTools/BasicCard.vue';
 
 const props = defineProps<{
     label: string,
@@ -6,27 +7,24 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-    <div class="status-card">
+    <BasicCard>
         <div class="label">{{ label }}</div>
         <div class="count">{{ count }} 件</div>
-    </div>
+    </BasicCard>
 </template>
 
 <style scoped>
-.status-card {
-    flex: 1 1 160px;
-    min-width: 140px;
-    max-width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
-    padding: 16px;
-    background-color: white;
-    cursor: pointer;
-    text-align: center;
-}
 .status-card:hover {
-    transition: 0.3s;
     background-color: aliceblue;
+}
+.label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+.count {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
 }
 </style>

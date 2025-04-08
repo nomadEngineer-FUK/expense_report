@@ -126,7 +126,7 @@ watch(
     top: 0;
     left: 0;
     padding: 1rem;
-    background-color: #e1edf9;
+    background-color: #1a2a42;
     z-index: 149;
     transition: transform 0.3s ease;
 }
@@ -140,7 +140,7 @@ watch(
 .header-link {
     text-decoration: none;
     font-size: large;
-    color: #333;
+    color: #ededed;
 }
 
 .sidebar-nav {
@@ -157,8 +157,8 @@ watch(
     position: relative;
 }
 .nav-item:hover {
-    background-color: #c3dcf4e5;
-    transition: 0.3s;
+    background-color: #2b3a56;
+    transform: translateX(4px);
     border-radius: 0.4rem;
 }
 .nav-link {
@@ -171,7 +171,8 @@ watch(
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: #333;
+    color: #ededed;
+    font-weight: bold;
 }
 
 /* モバイル用：ハンバーガー */
