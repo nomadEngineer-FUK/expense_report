@@ -59,6 +59,7 @@ const layout = computed<'column' | 'row'>(() =>
 }
 .cards-for-mobile {
     padding:1rem 1.6rem;
+    max-width: 100%;
 }
 
 .summary-block {
