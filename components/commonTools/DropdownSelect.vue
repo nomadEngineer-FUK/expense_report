@@ -65,6 +65,7 @@ const handleChange = (event: Event) => {
     font-weight: bold;
     margin-right: 1rem;
     flex: 0 0 auto;
+    min-width: 80px;
 }
 
 .dropdown-select {
