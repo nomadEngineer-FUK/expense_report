@@ -18,7 +18,7 @@ const layout = computed<'column' | 'row'>(() =>
 
 <template>
     <div class="monthly-report-data" :class="{'cards-for-mobile': isMobile}">
-        <div class="dropdown-area">
+        <div :class="{'dropdown-for-mobile': isMobile}">
             <DropdownSelect
                 label="表示年月"
                 v-model="yearMonth"
@@ -49,19 +49,14 @@ const layout = computed<'column' | 'row'>(() =>
 </template>
 
 <style scoped>
-.monthly-report-data {
-    max-width: 80%;
-    background-color: #fafafa;
-    margin: 0 auto;
-    padding: 1rem 3rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
 .cards-for-mobile {
     padding:1rem 1.6rem;
     max-width: 100%;
 }
-
+.dropdown-for-mobile {
+    max-width: 80%;
+    margin: 0 auto;
+}
 .summary-block {
     display: flex;
     flex-wrap: wrap;
@@ -81,13 +76,11 @@ const layout = computed<'column' | 'row'>(() =>
     text-align: center;
     margin: 0 auto;
 }
-
 .label {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 0.5rem;
 }
-
 .value {
     font-size: 1.3rem;
     font-weight: bold;

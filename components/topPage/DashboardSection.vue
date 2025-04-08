@@ -7,16 +7,21 @@ defineProps<{
 <template>
     <section class="dashboard-section">
         <h2 class="section-title">{{ title }}</h2>
-        <slot />
+        <div class="slot-wrapper">
+            <slot />
+        </div>
     </section>
 </template>
 
 <style scoped>
 .dashboard-section {
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 1rem 3rem;
+    margin-bottom: 1.6rem;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .section-title {
     margin-bottom: 2rem;
@@ -25,5 +30,19 @@ defineProps<{
     color: #333;
     border-bottom: 1px solid #ddd;
     padding-bottom: 1rem;
+}
+.slot-wrapper {
+    padding: 0 3.2rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-section {
+        text-align: center;
+    }
+    .dashboard-section {
+        padding: 1rem 1.6rem;
+        width: 90%;
+        
+    }
 }
 </style>

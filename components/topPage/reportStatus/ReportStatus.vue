@@ -18,7 +18,6 @@ const openModal = () => {
 const closeModal = () => {
     showModal.value = false;
 };
-
 </script>
 
 <template>
@@ -52,5 +51,6 @@ const closeModal = () => {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
 }
 </style>
