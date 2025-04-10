@@ -1,59 +1,88 @@
-<script setup>
-import TextBtn from '~/components/commonTools/TextBtn.vue'
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore'
-const { forms, addFormAt, removeForm } = useFormsStore()
+<script setup lang="ts">
+import TextBtn from '~/components/commonTools/TextBtn.vue';
+import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { departmentIdToNameMap } from '~/mock/mockData';
+const { forms, addFormAt, removeForm } = useFormsStore();
+
+defineProps<{
+    isConfirming: boolean;
+}>();
 
 // 入力フォームが一つの場合は、フォームの削除不可
-const isLastForm = computed(() => forms.value.length === 1)
+const isLastForm = computed(() => forms.value.length === 1);
 </script>
-
 <template>
     <div
         v-for="(form, index) in forms"
         :key="form.id"
         class="mobile-input-card"
     >
-        <div class="mobile-input-row">
-            <label>内容</label>
-            <input
-                v-model="form.content"
-                type="text"
-            />
-        </div>
-        <div class="mobile-input-row">
-            <label>部門</label>
-            <input
-                v-model="form.department"
-                type="text"
-            />
-        </div>
-        <div class="mobile-input-row">
-            <label>金額</label>
-            <input
-                v-model="form.amount"
-                type="number"
-            />
-        </div>
-        <div class="mobile-input-actions">
-            <TextBtn
-                text="下に追加"
-                class="report-btn"
-                button-text-color="text-white"
-                button-bg-color="bg-blue"
-                @click="addFormAt(index)"
-            />
+        <!-- 確認モード -->
+        <template v-if="isConfirming">
+            <div class="mobile-input-row">
+                <label>内容</label>
+                <div class="readonly-field">{{ form.description }}</div>
+            </div>
+            <div class="mobile-input-row">
+                <label>部門</label>
+                <div class="readonly-field">
+                    {{ departmentIdToNameMap[form.department_id] }}
+                </div>
+            </div>
+            <div class="mobile-input-row">
+                <label>金額</label>
+                <div class="readonly-field">{{ form.amount }}</div>
+            </div>
+        </template>
 
-            <TextBtn
-                v-show="!isLastForm"
-                text="削除"
-                class="report-btn"
-                button-text-color="text-white"
-                button-bg-color="bg-gray"
-                button-hover-text-color="hover-text-white"
-                button-hover-bg-color="hover-bg-gray"
-                @click="removeForm(form.id)"
-            />
-        </div>
+        <!-- 編集モード -->
+        <template v-else>
+            <div class="mobile-input-row">
+                <label>内容</label>
+                <input
+                    v-model="form.description"
+                    type="text"
+                    class="edit-input"
+                />
+            </div>
+            <div class="mobile-input-row">
+                <label>部門</label>
+                <input
+                    v-model="form.department"
+                    type="text"
+                    class="edit-input"
+                />
+            </div>
+            <div class="mobile-input-row">
+                <label>金額</label>
+                <input
+                    v-model="form.amount"
+                    type="number"
+                    class="edit-input"
+                />
+            </div>
+            <div class="mobile-input-actions">
+                <TextBtn
+                    v-if="!isConfirming"
+                    text="下に追加"
+                    class="report-btn"
+                    button-text-color="text-white"
+                    button-bg-color="bg-blue"
+                    @click="addFormAt(index)"
+                />
+                <TextBtn
+                    v-show="!isLastForm"
+                    v-if="!isConfirming"
+                    text="削除"
+                    class="report-btn"
+                    button-text-color="text-white"
+                    button-bg-color="bg-gray"
+                    button-hover-text-color="hover-text-white"
+                    button-hover-bg-color="hover-bg-gray"
+                    @click="removeForm(form.id)"
+                />
+            </div>
+        </template>
     </div>
 </template>
 
