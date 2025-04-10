@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
+import { navLinks } from '~/composables/sidebar/useSidebar';
 
 // 端末の判定
 const isMobile = useIsUnderBreakpoint(768);
@@ -41,74 +42,19 @@ watch(
             </div>
             <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li class="nav-item">
+                    <li
+                        v-for="link in navLinks"
+                        :key="link.path"
+                        class="nav-item"
+                    >
                         <NuxtLink
-                            to="/expense-report"
-                            class="nav-link"
-                            >申請する</NuxtLink
+                            :to="link.path"
+                            :class="[
+                                'nav-link',
+                                route.path === link.path ? 'active' : ''
+                            ]"
                         >
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/expense-report/history"
-                            class="nav-link"
-                            >申請履歴</NuxtLink
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            承認する
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            申請一覧
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            プロフィール
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            アカウント一覧
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            設定
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            FAQ
-                        </NuxtLink>
-                    </li>
-                    <li class="nav-item">
-                        <NuxtLink
-                            to="/"
-                            class="nav-link"
-                        >
-                            ログアウト
+                            {{ link.label }}
                         </NuxtLink>
                     </li>
                 </ul>
@@ -172,6 +118,13 @@ watch(
     justify-content: center;
     text-decoration: none;
     color: #ededed;
+    font-weight: bold;
+}
+
+.active {
+    background-color: #264a78;
+    color: white;
+    border-radius: 0.4rem;
     font-weight: bold;
 }
 
