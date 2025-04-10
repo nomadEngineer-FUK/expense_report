@@ -17,6 +17,11 @@ export const mockDepartments: Department[] = [
     { id: 5, name: "営業" },
     { id: 6, name: "企画" },
 ];
+// mockData.ts の中か、別ファイルで以下を追加
+export const departmentIdToNameMap: Record<number, string> = Object.fromEntries(
+    mockDepartments.map((d) => [d.id, d.name])
+)
+
 
 // ✅ モックデータ：勘定科目
 export const mockAccountingItems: AccountingItem[] = [

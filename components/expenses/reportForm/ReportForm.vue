@@ -1,36 +1,51 @@
 <script setup>
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore'
-import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi'
+import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi';
 
 // コンポーネント
-import ReportSectionHeader from './ReportSectionHeader.vue'
-import TextBtn from '@/components/commonTools/TextBtn.vue'
-import ReportDetailForMobile from './ReportDetailForMobile.vue'
-import ReportDetailForPC from './ReportDetailForPC.vue'
+import ReportSectionHeader from './ReportSectionHeader.vue';
+import TextBtn from '@/components/commonTools/TextBtn.vue';
+import ReportDetailForMobile from './ReportDetailForMobile.vue';
+import ReportDetailForPC from './ReportDetailForPC.vue';
 
-const { addExpense } = useExpensesApi()
-const { forms, createNewForm } = useFormsStore()
+const { addExpense } = useExpensesApi();
+const { forms, createNewForm } = useFormsStore();
 
-const handleSubmit = async () => {
+// const handleSubmit = async () => {
+//     const isSuccess = await addExpense(forms.value);
+//     if (isSuccess) forms.value = [createNewForm()];
+// };
+
+const isConfirming = ref(false);
+const onClickConfirm = () => {
+    isConfirming.value = true;
+};
+const onClickSubmit = async () => {
     const isSuccess = await addExpense(forms.value);
-    if (isSuccess) forms.value = [createNewForm()];
+    if (isSuccess) {
+        forms.value = [createNewForm()];
+        isConfirming.value = false;
+    }
+};
+const onClickBack = () => {
+    isConfirming.value = false;
 };
 
 // 端末により表示するコンポーネントを分ける
-const isPC = ref(true)
+const isPC = ref(true);
 
 const checkScreen = () => {
-    isPC.value = window.innerWidth > 768
-}
+    isPC.value = window.innerWidth > 768;
+};
 
 onMounted(() => {
-    checkScreen()
-    window.addEventListener('resize', checkScreen)
-})
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+});
 
 onUnmounted(() => {
-    window.removeEventListener('resize', checkScreen)
-})
+    window.removeEventListener('resize', checkScreen);
+});
 </script>
 
 <template>
@@ -41,11 +56,31 @@ onUnmounted(() => {
                 <div class="report-contents-wrapper">
                     <div class="contents purchase-date">
                         <label>1.1 購入日</label>
-                        <input type="date" v-model="forms[0].purchase_date" />
+                        <template v-if="isConfirming">
+                            <div class="readonly-field">
+                                {{ forms[0].purchase_date }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            <input
+                                type="date"
+                                v-model="forms[0].purchase_date"
+                            />
+                        </template>
                     </div>
                     <div class="contents payee">
                         <label>1.2 支払先</label>
-                        <input type="text" v-model="forms[0].payee" />
+                        <template v-if="isConfirming">
+                            <div class="readonly-field">
+                                {{ forms[0].payee }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            <input
+                                type="text"
+                                v-model="forms[0].payee"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>
@@ -55,15 +90,18 @@ onUnmounted(() => {
             <ReportSectionHeader :label="'2. 経費の詳細'" />
             <div class="report-card">
                 <p class="side-note">
-                    * 1つの経費支出（一枚の領収証）の中で、用途が異なるものがある場合は、<br />
+                    *
+                    1つの経費支出（一枚の領収証）の中で、用途が異なるものがある場合は、<br />
                     「+」ボタンでフォームを複製して、それぞれ入力してください
                 </p>
-                <div v-if="isPC">
-                    <ReportDetailForPC />
-                </div>
-                <div v-else>
-                    <ReportDetailForMobile />
-                </div>
+                <ReportDetailForPC
+                    v-if="isPC"
+                    :is-Confirming="isConfirming"
+                />
+                <ReportDetailForMobile
+                    v-else
+                    :is-confirming="isConfirming"
+                />
             </div>
         </div>
 
@@ -72,12 +110,19 @@ onUnmounted(() => {
             <div class="report-card">
                 <div class="report-contents-wrapper">
                     <div class="contents purchase-date">
-                        <textarea
-                            name="note"
-                            id="note"
-                            class="note-textarea"
-                            v-model="forms[0].note"
-                        ></textarea>
+                        <template v-if="isConfirming">
+                            <div class="readonly-field">
+                                {{ forms[0].note }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            <textarea
+                                name="note"
+                                id="note"
+                                class="note-textarea"
+                                v-model="forms[0].note"
+                            ></textarea>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -85,17 +130,25 @@ onUnmounted(() => {
 
         <div class="report-btn-container">
             <TextBtn
+                v-if="!isConfirming"
                 text="確認する"
                 button-text-color="text-white"
                 button-bg-color="bg-blue"
-                @click="handleSubmit()"
+                @click="onClickConfirm"
             />
             <TextBtn
-                text="キャンセル"
-                button-text-color="text-black"
-                button-bg-color="bg-light-gray"
-                button-hover-text-color="hover-text-white"
-                button-hover-bg-color="hover-bg-gray"
+                v-if="isConfirming"
+                text="戻る"
+                button-text-color="text-white"
+                button-bg-color="bg-gray"
+                @click="onClickBack"
+            />
+            <TextBtn
+                v-if="isConfirming"
+                text="送信する"
+                button-text-color="text-white"
+                button-bg-color="bg-blue"
+                @click="onClickSubmit"
             />
         </div>
     </div>
@@ -150,5 +203,19 @@ onUnmounted(() => {
     margin-top: 1.2rem;
     justify-content: flex-end;
     padding-right: 5%;
+}
+
+.readonly-field,
+:deep(.readonly-field) {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    min-height: 2.6rem;
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap;
+    width: 100%;
 }
 </style>

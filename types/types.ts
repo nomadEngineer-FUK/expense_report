@@ -39,7 +39,7 @@ export type DisplayedExpenseReport = Pick<ExpenseReportType, typeof DISPLAYED_CO
 export type ExpenseForm = {
     description: string
     department_id: number
-    amount: number
+    amount: number | null
 }
 
 export type User = {
