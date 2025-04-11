@@ -1,4 +1,5 @@
-
+import type { ExpenseReportType } from "~/types/types";
+import { useExpensesApi } from "../api/supabase/useExpensesApi";
 
 export const useDashBoardData = () => {
 
@@ -21,29 +22,39 @@ export const useDashBoardData = () => {
         };
     });
 
+    const { fetchExpenses } = useExpensesApi();
+    const allExpenses = ref<ExpenseReportType[]>([]);
+    const selectedYearMonth = ref<string>("");
+    selectedYearMonth.value = optionsOfYearMonth[0].value;
 
-    // 選択された年月の前月を求める
-    const getPreviousMonth = (yyyymm: string): string => {
-        const [yearStr, monthStr] = yyyymm.split("/");
-        const year = Number(yearStr);
-        const month = Number(monthStr);
+    const fetchAll = async (): Promise<void> => {
+        const data = await fetchExpenses();
+        allExpenses.value = data;
+    };
 
-        let prevYear = year;
-        let prevMonth = month - 1;
+    const filteredExpenses = computed<ExpenseReportType[]>(() => {
 
-        if (prevMonth === 0) {
-            prevYear -= -1
-            prevMonth = 12
+        const expenses = allExpenses.value ?? [];
+        if (!selectedYearMonth.value) {
+            return expenses as ExpenseReportType[];
         }
 
-        // 月を0埋め（2桁表示）
-        const paddedMonth = String(prevMonth).padStart(2, "0");
+        return expenses.filter((item: ExpenseReportType) => {
+            if (!item.purchase_date) return false;
 
-        return `${prevYear}/${paddedMonth}`;
-    };
-    
+            const date = new Date(item.purchase_date);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const yearMonth = `${year}/${month}`;
+
+            return yearMonth === selectedYearMonth.value;
+        }) as ExpenseReportType[];
+    });
+
     return {
+        selectedYearMonth,
         optionsOfYearMonth,
-        getPreviousMonth,
+        filteredExpenses,
+        fetchAll
     }
 };

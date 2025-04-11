@@ -5,16 +5,17 @@ import BasicCard from '../commonTools/BasicCard.vue';
 import { useDashBoardData } from '~/composables/dashboard/useDashboardData';
 import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 
-const { optionsOfYearMonth } = useDashBoardData();
-
-// 表示年月のプルダウン
-const yearMonth = ref<string>(optionsOfYearMonth[0].label);
+const { optionsOfYearMonth, selectedYearMonth, filteredExpenses, fetchAll } =
+    useDashBoardData();
 
 // 端末の検知
 const isMobile = useIsUnderBreakpoint(768);
 const layout = computed<'column' | 'row'>(() =>
     isMobile.value ? 'column' : 'row'
 );
+onMounted(() => {
+    fetchAll();
+});
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const layout = computed<'column' | 'row'>(() =>
         >
             <DropdownSelect
                 label="表示年月"
-                v-model="yearMonth"
+                v-model="selectedYearMonth"
                 :options="optionsOfYearMonth"
                 :layout="layout"
             />
@@ -37,11 +38,19 @@ const layout = computed<'column' | 'row'>(() =>
         <div class="summary-card">
             <BasicCard>
                 <div class="label">申請件数</div>
-                <div class="value">{{ 2 }} 件</div>
+                <div class="value">{{ filteredExpenses.length }} 件</div>
             </BasicCard>
             <BasicCard>
                 <div class="label">申請金額</div>
-                <div class="value">¥ {{ 222 }}</div>
+                <div class="value">
+                    ¥
+                    {{
+                        filteredExpenses.reduce(
+                            (sum, item) => sum + (item.amount ?? 0),
+                            0
+                        )
+                    }}
+                </div>
             </BasicCard>
         </div>
 
