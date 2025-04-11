@@ -122,7 +122,7 @@ watch(
 }
 
 .active {
-    background-color: #264a78;
+    background-color: #2c3e50;
     color: white;
     border-radius: 0.4rem;
     font-weight: bold;
@@ -149,7 +149,7 @@ watch(
         top: 1rem;
         left: 1rem;
         z-index: 150;
-        background-color: #327ddf;
+        background-color: #1a2a42;
         color: white;
         font-size: 1.5rem;
         border: none;
