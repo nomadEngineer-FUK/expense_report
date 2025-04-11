@@ -11,11 +11,6 @@ import ReportDetailForPC from './ReportDetailForPC.vue';
 const { addExpense } = useExpensesApi();
 const { forms, createNewForm } = useFormsStore();
 
-// const handleSubmit = async () => {
-//     const isSuccess = await addExpense(forms.value);
-//     if (isSuccess) forms.value = [createNewForm()];
-// };
-
 const isConfirming = ref(false);
 const onClickConfirm = () => {
     isConfirming.value = true;

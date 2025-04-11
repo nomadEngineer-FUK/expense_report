@@ -2,6 +2,7 @@
 import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
 import PlusBtn from '~/components/commonTools/PlusBtn.vue';
 import ReportFormForInput from './ReportFormForInput.vue';
+import { formatNumber } from '~/composables/api/supabase/common/useCommon';
 import { departmentIdToNameMap } from '~/mock/mockData';
 const { forms, addFormAt, addFormToTop, removeForm } = useFormsStore();
 
@@ -53,7 +54,7 @@ const isLastForm = computed(() => forms.value.length === 1);
                 <div class="readonly-field">
                     {{ departmentIdToNameMap[form.department_id] }}
                 </div>
-                <div class="readonly-field">{{ form.amount }}</div>
+                <div class="readonly-field">{{ formatNumber(form.amount) }}</div>
             </div>
         </div>
     </div>

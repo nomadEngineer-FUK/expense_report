@@ -1,41 +1,47 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { DISPLAYED_COLUMNS } from '~/types/types'
-import type { ExpenseReportType } from '~/types/types'
-import { FilterType, SortType, filterOptions, sortOptions } from '~/types/types'
+import { ref, onMounted } from 'vue';
+import { DISPLAYED_COLUMNS } from '~/types/types';
+import type { ExpenseReportType } from '~/types/types';
+import {
+    FilterType,
+    SortType,
+    filterOptions,
+    sortOptions,
+} from '~/types/types';
 import {
     fetchExpenseReports,
     filterExpenseReports,
     sortExpenseReports,
-} from '~/useCases/fetchExpenseReports'
+} from '~/useCases/fetchExpenseReports';
 import { COLUMN_LABEL_MAP } from '~/constants';
-import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon'
-import DropdownSelect from '~/components/commonTools/DropdownSelect.vue'
+import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber } from '~/composables/api/supabase/common/useCommon';
+import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
 
 // カラム名を日本語へ変換
-const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col
+const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col;
 
 // 表示するカラムリスト
-const columnNames = ref(DISPLAYED_COLUMNS)
+const columnNames = ref(DISPLAYED_COLUMNS);
 
 // フィルター対象のカラム
-const filterType = ref<FilterType>(filterOptions[0].value)
+const filterType = ref<FilterType>(filterOptions[0].value);
 
 // ソート対象のカラム
-const sortKey = ref<keyof ExpenseReportType>('id')
-const sortOrder = ref<SortType>(SortType.Asc)
+const sortKey = ref<keyof ExpenseReportType>('id');
+const sortOrder = ref<SortType>(SortType.Asc);
 
 const sortKeyOptions = computed(() =>
     columnNames.value.map((col) => ({
         label: mappedColumns(col),
         value: col,
     }))
-)
+);
 
 // 表示データ
 const allExpenseReports = ref<
     (ExpenseReportType & { formattedDate: string })[]
->([])
+>([]);
 
 // データ取得
 const processedReports = computed<
@@ -44,26 +50,26 @@ const processedReports = computed<
     const filtered = filterExpenseReports(
         allExpenseReports.value,
         filterType.value
-    )
-    return sortExpenseReports(filtered, sortKey.value, sortOrder.value)
-})
+    );
+    return sortExpenseReports(filtered, sortKey.value, sortOrder.value);
+});
 
 onMounted(async () => {
-    allExpenseReports.value = await fetchExpenseReports()
-})
+    allExpenseReports.value = await fetchExpenseReports();
+});
 
 // 承認状況の表示フォーマット
 const getApprovalStatusText = (approval: boolean) => {
-    return approval ? '承認済' : '未承認'
-}
+    return approval ? '承認済' : '未承認';
+};
 const getApprovalStatusClass = (approval: boolean) => {
-    return approval ? 'status-approved' : 'status-unapproved'
-}
+    return approval ? 'status-approved' : 'status-unapproved';
+};
 
 // 端末の検知
 const isTablet = useIsUnderBreakpoint(1023);
-const layout = computed<"row" | "column">(() => 
-    isTablet.value ? "row" : "column"
+const layout = computed<'row' | 'column'>(() =>
+    isTablet.value ? 'row' : 'column'
 );
 </script>
 
@@ -147,12 +153,10 @@ const layout = computed<"row" | "column">(() =>
                                     </span>
                                 </template>
                                 <template v-else-if="col === 'amount'">
-                                    {{ report[col]?.toLocaleString() }}
-                                    <!-- カンマ付きにする -->
+                                    {{ formatNumber(report[col]) }}
                                 </template>
                                 <template v-else-if="col === 'create_date'">
                                     {{ report.formattedDate }}
-                                    <!-- 日付のフォーマットに変更 -->
                                 </template>
                                 <template v-else>
                                     {{ report[col] }}

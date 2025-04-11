@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BasicCard from '~/components/commonTools/BasicCard.vue';
+import { formatNumber } from '~/composables/api/supabase/common/useCommon';
 
 const props = defineProps<{
     label: string,
@@ -9,7 +10,7 @@ const props = defineProps<{
 <template>
     <BasicCard>
         <div class="label">{{ label }}</div>
-        <div class="count">{{ count }} 件</div>
+        <div class="count">{{ formatNumber(count) }} 件</div>
     </BasicCard>
 </template>
 

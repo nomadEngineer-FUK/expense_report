@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TextBtn from '~/components/commonTools/TextBtn.vue';
 import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { formatNumber } from '~/composables/api/supabase/common/useCommon';
 import { mockDepartments, departmentIdToNameMap } from '~/mock/mockData';
 
 const { forms, addFormAt, removeForm } = useFormsStore();
@@ -32,7 +33,9 @@ const isLastForm = computed(() => forms.value.length === 1);
             </div>
             <div class="mobile-input-row">
                 <label>金額</label>
-                <div class="readonly-field">{{ form.amount }}</div>
+                <div class="readonly-field">
+                    {{ formatNumber(form.amount) }}
+                </div>
             </div>
         </template>
 

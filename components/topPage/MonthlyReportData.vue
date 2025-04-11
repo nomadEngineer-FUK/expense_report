@@ -3,7 +3,7 @@ import DropdownSelect from '../commonTools/DropdownSelect.vue';
 import TextBtn from '../commonTools/TextBtn.vue';
 import BasicCard from '../commonTools/BasicCard.vue';
 import { useDashBoardData } from '~/composables/dashboard/useDashboardData';
-import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber, useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 
 const { optionsOfYearMonth, selectedYearMonth, filteredExpenses, fetchAll } =
     useDashBoardData();
@@ -38,17 +38,17 @@ onMounted(() => {
         <div class="summary-card">
             <BasicCard>
                 <div class="label">申請件数</div>
-                <div class="value">{{ filteredExpenses.length }} 件</div>
+                <div class="value">{{ formatNumber(filteredExpenses.length) }} 件</div>
             </BasicCard>
             <BasicCard>
                 <div class="label">申請金額</div>
                 <div class="value">
                     ¥
                     {{
-                        filteredExpenses.reduce(
+                        formatNumber(filteredExpenses.reduce(
                             (sum, item) => sum + (item.amount ?? 0),
                             0
-                        )
+                        ))
                     }}
                 </div>
             </BasicCard>
