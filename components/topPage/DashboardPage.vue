@@ -21,6 +21,7 @@ import DashboardSection from './DashboardSection.vue';
 
 <style scoped>
 .dashboard-wrapper {
+    height: 100vh;
     padding-top: 3rem;
     background-color: #f7f9fc;
 }
