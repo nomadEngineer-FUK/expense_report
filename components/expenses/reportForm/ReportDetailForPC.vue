@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { useFormsStore } from '~/composables/expenseReport/useFormsStore';
 import PlusBtn from '~/components/commonTools/PlusBtn.vue';
 import ReportFormForInput from './ReportFormForInput.vue';
 import { formatNumber } from '~/composables/common/useCommon';
@@ -54,7 +54,9 @@ const isLastForm = computed(() => forms.value.length === 1);
                 <div class="readonly-field">
                     {{ departmentIdToNameMap[form.department_id] }}
                 </div>
-                <div class="readonly-field">{{ formatNumber(form.amount) }}</div>
+                <div class="readonly-field">
+                    {{ formatNumber(form.amount) }}
+                </div>
             </div>
         </div>
     </div>

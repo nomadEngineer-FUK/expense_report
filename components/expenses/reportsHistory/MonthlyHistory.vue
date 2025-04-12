@@ -1,84 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi';
-import type { ExpenseReportType } from '~/types/types';
 import { formatNumber } from '~/composables/common/useCommon';
 import ToggleBtn from '~/components/commonTools/ToggleBtn.vue';
+import { useMonthlyHistory } from '~/composables/expenseReport/useMonthlyHistory';
 
-// データ取得
-const { fetchExpenses } = useExpensesApi();
-const allExpenses = ref<ExpenseReportType[]>([]);
-const showAllMonths = ref(false);
+const { displayData, showAllMonths, fetchAll } = useMonthlyHistory();
 
-// 申請実績月の最古〜最新リストを作成
-const getAllYearMonthKeys = (start: Date, end: Date): string[] => {
-    const keys: string[] = [];
-    const date = new Date(start);
-    date.setDate(1);
-
-    while (date <= end) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        keys.push(`${year}/${month}`);
-        date.setMonth(date.getMonth() + 1);
-    }
-    return keys;
-};
-
-// 集計
-const groupedExpenses = computed(() => {
-    const map = new Map<string, { count: number; total: number }>();
-
-    for (const exp of allExpenses.value) {
-        if (!exp.purchase_date) continue;
-        const d = new Date(exp.purchase_date);
-        const key = `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(
-            2,
-            '0'
-        )}`;
-
-        let current = map.get(key);
-        if (!current) {
-            current = { count: 0, total: 0 };
-            map.set(key, current);
-        }
-        current.count += 1;
-        current.total += exp.amount ?? 0;
-    }
-
-    return map;
-});
-
-// テーブルに表示するデータ
-const displayData = computed(() => {
-    const today = new Date();
-    const oldest = allExpenses.value.reduce((min, item) => {
-        const d = new Date(item.purchase_date);
-        return d < min ? d : min;
-    }, today);
-
-    const keys = showAllMonths.value
-        ? getAllYearMonthKeys(oldest, today)
-        : [...groupedExpenses.value.keys()];
-
-    // 年月で降順ソート
-    const sortedKeys = keys.sort((a, b) => {
-        const aDate = new Date(a + '/01');
-        const bDate = new Date(b + '/01');
-        return bDate.getTime() - aDate.getTime();
-    });
-
-    return sortedKeys.map((key) => {
-        const { count = 0, total = 0 } = groupedExpenses.value.get(key) ?? {};
-        return { yearMonth: key, count, total };
-    });
-});
-
-// 初期データ取得
-onMounted(async () => {
-    const data = await fetchExpenses();
-    allExpenses.value = data;
-});
+onMounted(fetchAll);
 </script>
 
 <template>
@@ -87,8 +15,8 @@ onMounted(async () => {
 
         <div class="toggle-wrapper">
             <ToggleBtn
-            :label="'全ての月を表示（申請 0 件含む）'"
-            v-model="showAllMonths"
+                :label="'全ての月を表示（申請 0 件含む）'"
+                v-model="showAllMonths"
             />
         </div>
 
@@ -104,7 +32,7 @@ onMounted(async () => {
                 <tr
                     v-for="item in displayData"
                     :key="item.yearMonth"
-                    >
+                >
                     <td>{{ item.yearMonth.replace('/', '年') }}月</td>
                     <td>{{ item.count }} 件</td>
                     <td>¥ {{ formatNumber(item.total) }}</td>
