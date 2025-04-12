@@ -1,5 +1,5 @@
 <script setup>
-import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
+import { useFormsStore } from '~/composables/expenseReport/useFormsStore';
 import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi';
 
 // コンポーネント
