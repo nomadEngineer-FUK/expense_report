@@ -15,7 +15,7 @@ import {
 } from '~/useCases/fetchExpenseReports';
 import { COLUMN_LABEL_MAP } from '~/constants';
 import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
-import { formatNumber } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber } from '~/composables/common/useCommon';
 import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
 
 // カラム名を日本語へ変換
@@ -253,7 +253,6 @@ th {
 }
 tr:hover {
     background-color: rgba(255, 245, 157, 0.3) !important;
-    transition: 0.3s;
 }
 tr:nth-child(even) {
     background-color: #fafafa;

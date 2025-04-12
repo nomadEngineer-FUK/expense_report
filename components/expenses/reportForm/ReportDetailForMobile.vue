@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextBtn from '~/components/commonTools/TextBtn.vue';
 import { useFormsStore } from '~/composables/ExpenseReport/useFormsStore';
-import { formatNumber } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber } from '~/composables/common/useCommon';
 import { mockDepartments, departmentIdToNameMap } from '~/mock/mockData';
 
 const { forms, addFormAt, removeForm } = useFormsStore();

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BasicCard from '~/components/commonTools/BasicCard.vue';
-import { formatNumber } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber } from '~/composables/common/useCommon';
 
 const props = defineProps<{
     label: string,
