@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useExpensesApi } from '~/composables/api/supabase/useExpensesApi';
 import type { ExpenseReportType } from '~/types/types';
 import { formatNumber } from '~/composables/common/useCommon';
+import ToggleBtn from '~/components/commonTools/ToggleBtn.vue';
 
 // データ取得
 const { fetchExpenses } = useExpensesApi();
@@ -84,35 +85,32 @@ onMounted(async () => {
     <div class="monthly-history-container">
         <h2 class="title">月別申請履歴</h2>
 
-        <label class="toggle">
-            <input
-                type="checkbox"
-                v-model="showAllMonths"
+        <div class="toggle-wrapper">
+            <ToggleBtn
+            :label="'全ての月を表示（申請 0 件含む）'"
+            v-model="showAllMonths"
             />
-            全ての月を表示（申請 0 件含む）
-        </label>
-
-        <div class="table-wrapper">
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>年月</th>
-                        <th>件数</th>
-                        <th>申請金額</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="item in displayData"
-                        :key="item.yearMonth"
-                    >
-                        <td>{{ item.yearMonth.replace('/', '年') }}月</td>
-                        <td>{{ item.count }} 件</td>
-                        <td>¥ {{ formatNumber(item.total) }}</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>年月</th>
+                    <th>件数</th>
+                    <th>申請金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    v-for="item in displayData"
+                    :key="item.yearMonth"
+                    >
+                    <td>{{ item.yearMonth.replace('/', '年') }}月</td>
+                    <td>{{ item.count }} 件</td>
+                    <td>¥ {{ formatNumber(item.total) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -159,6 +157,14 @@ onMounted(async () => {
 .history-table tbody tr:hover {
     background-color: rgba(255, 245, 157, 0.3);
 }
+
+.toggle-wrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 768px) {
     .title {
         font-size: 1.4rem;
