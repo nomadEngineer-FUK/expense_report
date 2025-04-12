@@ -38,17 +38,21 @@ onMounted(() => {
         <div class="summary-card">
             <BasicCard>
                 <div class="label">申請件数</div>
-                <div class="value">{{ formatNumber(filteredExpenses.length) }} 件</div>
+                <div class="value">
+                    {{ formatNumber(filteredExpenses.length) }} 件
+                </div>
             </BasicCard>
             <BasicCard>
                 <div class="label">申請金額</div>
                 <div class="value">
                     ¥
                     {{
-                        formatNumber(filteredExpenses.reduce(
-                            (sum, item) => sum + (item.amount ?? 0),
-                            0
-                        ))
+                        formatNumber(
+                            filteredExpenses.reduce(
+                                (sum, item) => sum + (item.amount ?? 0),
+                                0
+                            )
+                        )
                     }}
                 </div>
             </BasicCard>
@@ -57,9 +61,9 @@ onMounted(() => {
         <div class="btn-to-display-past-data">
             <NuxtLink to="/expense-report/monthly-history">
                 <TextBtn
-                :text="'過去のデータを見る'"
-                button-text-color="text-gray"
-                button-bg-color="bg-orange"
+                    :text="'過去のサマリを見る'"
+                    button-text-color="text-gray"
+                    button-bg-color="bg-orange"
                 />
             </NuxtLink>
         </div>

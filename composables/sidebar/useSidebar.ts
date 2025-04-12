@@ -5,6 +5,6 @@ export const navLinks = [
     { label: "プロフィール", path: "/" },
     { label: "アカウント一覧", path: "/" },
     { label: "設定", path: "/" },
-    { label: "FAQ", path: "/" },
+    // { label: "FAQ", path: "/" },
     { label: "ログアウト", path: "/" }
 ];
