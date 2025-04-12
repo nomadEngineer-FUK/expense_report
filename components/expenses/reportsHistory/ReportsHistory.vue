@@ -17,6 +17,7 @@ import { COLUMN_LABEL_MAP } from '~/constants';
 import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
 import { formatNumber } from '~/composables/common/useCommon';
 import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
+import { useMonthlyHistory } from '../../../composables/expenseReport/useMonthlyHistory';
 
 // カラム名を日本語へ変換
 const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col;
@@ -55,6 +56,7 @@ const processedReports = computed<
 });
 
 onMounted(async () => {
+    await fetchAll();
     allExpenseReports.value = await fetchExpenseReports();
 });
 
@@ -71,6 +73,16 @@ const isTablet = useIsUnderBreakpoint(1023);
 const layout = computed<'row' | 'column'>(() =>
     isTablet.value ? 'row' : 'column'
 );
+
+// 月別申請データ
+const { displayData, fetchAll } = useMonthlyHistory();
+const optionsForMonthlyData = computed(() =>
+    displayData.value.map((item) => ({
+        label: `${item.yearMonth.replace('/', '年')}月（${item.count}件）`,
+        value: item.yearMonth,
+    }))
+);
+const selectedYearMonth = ref<string>('');
 </script>
 
 <template>
@@ -99,6 +111,12 @@ const layout = computed<'row' | 'column'>(() =>
                     label="並び替え"
                     v-model="sortOrder"
                     :options="sortOptions"
+                    :layout="layout"
+                />
+                <DropdownSelect
+                    label="月別実績"
+                    v-model="selectedYearMonth"
+                    :options="optionsForMonthlyData"
                     :layout="layout"
                 />
             </div>
