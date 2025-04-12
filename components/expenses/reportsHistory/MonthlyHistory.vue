@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { formatNumber } from '~/composables/common/useCommon';
-import ToggleBtn from '~/components/commonTools/ToggleBtn.vue';
 import { useMonthlyHistory } from '~/composables/expenseReport/useMonthlyHistory';
+import ToggleBtn from '~/components/commonTools/ToggleBtn.vue';
+import TextBtn from '~/components/commonTools/TextBtn.vue';
 
 const { displayData, showAllMonths, fetchAll } = useMonthlyHistory();
 
@@ -13,11 +14,20 @@ onMounted(fetchAll);
     <div class="monthly-history-container">
         <h2 class="title">月別申請履歴</h2>
 
-        <div class="toggle-wrapper">
-            <ToggleBtn
+        <div class="tools-wrapper">
+            <NuxtLink to="/">
+                <TextBtn
+                text="Back to DashBoard"
+                buttonTextColor="text-gray"
+                buttonBgColor="bg-orange"
+                />
+            </NuxtLink>
+            <div class="toggle-wrapper">
+                <ToggleBtn
                 :label="'全ての月を表示（申請 0 件含む）'"
                 v-model="showAllMonths"
-            />
+                />
+            </div>
         </div>
 
         <table class="history-table">
@@ -48,6 +58,14 @@ onMounted(fetchAll);
     margin: 2rem auto;
     padding: 1rem;
 }
+.tools-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
 .title {
     text-align: center;
     font-size: 1.8rem;
@@ -84,13 +102,6 @@ onMounted(fetchAll);
 }
 .history-table tbody tr:hover {
     background-color: rgba(255, 245, 157, 0.3);
-}
-
-.toggle-wrapper {
-    display: flex;
-    justify-content: end;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
 }
 
 @media (max-width: 768px) {
