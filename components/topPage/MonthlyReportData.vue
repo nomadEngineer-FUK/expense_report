@@ -3,8 +3,8 @@ import DropdownSelect from '../commonTools/DropdownSelect.vue';
 import TextBtn from '../commonTools/TextBtn.vue';
 import BasicCard from '../commonTools/BasicCard.vue';
 import { useDashBoardData } from '~/composables/dashboard/useDashboardData';
-import { formatNumber, useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
-
+import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
+import { formatNumber } from '~/composables/common/useCommon';
 const { optionsOfYearMonth, selectedYearMonth, filteredExpenses, fetchAll } =
     useDashBoardData();
 
@@ -55,11 +55,13 @@ onMounted(() => {
         </div>
 
         <div class="btn-to-display-past-data">
-            <TextBtn
+            <NuxtLink to="/expense-report/monthly-history">
+                <TextBtn
                 :text="'過去のデータを見る'"
                 button-text-color="text-gray"
                 button-bg-color="bg-orange"
-            />
+                />
+            </NuxtLink>
         </div>
     </div>
 </template>
