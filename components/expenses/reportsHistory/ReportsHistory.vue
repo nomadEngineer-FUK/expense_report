@@ -1,88 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { DISPLAYED_COLUMNS } from '~/types/types';
-import type { ExpenseReportType } from '~/types/types';
-import {
-    FilterType,
-    SortType,
-    filterOptions,
-    sortOptions,
-} from '~/types/types';
-import {
-    fetchExpenseReports,
-    filterExpenseReports,
-    sortExpenseReports,
-} from '~/useCases/fetchExpenseReports';
-import { COLUMN_LABEL_MAP } from '~/constants';
-import { useIsUnderBreakpoint } from '~/composables/api/supabase/common/useCommon';
-import { formatNumber } from '~/composables/common/useCommon';
-import DropdownSelect from '~/components/commonTools/DropdownSelect.vue';
-import { useMonthlyHistory } from '../../../composables/expenseReport/useMonthlyHistory';
+import { filterOptions, sortOptions } from "~/types/types";
+import { useExpenseReportHistory } from "~/composables/expenseReport/useReportHistory";
+import { formatNumber } from "~/composables/common/useCommon";
+import DropdownSelect from "~/components/commonTools/DropdownSelect.vue";
 
-// カラム名を日本語へ変換
-const mappedColumns = (col: string) => COLUMN_LABEL_MAP[col] || col;
-
-// 表示するカラムリスト
-const columnNames = ref(DISPLAYED_COLUMNS);
-
-// フィルター対象のカラム
-const filterType = ref<FilterType>(filterOptions[0].value);
-
-// ソート対象のカラム
-const sortKey = ref<keyof ExpenseReportType>('id');
-const sortOrder = ref<SortType>(SortType.Asc);
-
-const sortKeyOptions = computed(() =>
-    columnNames.value.map((col) => ({
-        label: mappedColumns(col),
-        value: col,
-    }))
-);
-
-// 表示データ
-const allExpenseReports = ref<
-    (ExpenseReportType & { formattedDate: string })[]
->([]);
-
-// データ取得
-const processedReports = computed<
-    (ExpenseReportType & { formattedDate: string })[]
->(() => {
-    const filtered = filterExpenseReports(
-        allExpenseReports.value,
-        filterType.value
-    );
-    return sortExpenseReports(filtered, sortKey.value, sortOrder.value);
-});
-
-onMounted(async () => {
-    await fetchAll();
-    allExpenseReports.value = await fetchExpenseReports();
-});
-
-// 承認状況の表示フォーマット
-const getApprovalStatusText = (approval: boolean) => {
-    return approval ? '承認済' : '未承認';
-};
-const getApprovalStatusClass = (approval: boolean) => {
-    return approval ? 'status-approved' : 'status-unapproved';
-};
-
-// 端末の検知
-const isTablet = useIsUnderBreakpoint(1023);
-const layout = computed<'row' | 'column'>(() =>
-    isTablet.value ? 'row' : 'column'
-);
-
-// 月別申請データ
-const { displayData, fetchAll } = useMonthlyHistory();
-const optionsForMonthlyData = computed(() =>
-    displayData.value.map((item) => ({
-        label: `${item.yearMonth.replace('/', '年')}月（${item.count}件）`,
-        value: item.yearMonth,
-    }))
-);
-const selectedYearMonth = ref<string>('');
+const {
+    mappedColumns,
+    columnNames,
+    filterType,
+    sortKey,
+    sortOrder,
+    sortKeyOptions,
+    processedReports,
+    getApprovalStatusText,
+    getApprovalStatusClass,
+    layout,
+    optionsForMonthlyData,
+    selectedYearMonth,
+} = useExpenseReportHistory();
 </script>
 
 <template>
